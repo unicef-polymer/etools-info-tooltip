@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>etools-info-tooltip test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../etools-info-tooltip.html">
+  </head>
+  <body>
+    <test-fixture id="tooltip-element">
+      <template>
+        <etools-info-tooltip></etools-info-tooltip>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('etools-info-tooltip', function() {
+
+        var tooltipElement;
+        setup(function() {
+          tooltipElement = fixture('tooltip-element');
+        });
+
+        test('instantiating the element works', function() {
+          assert.equal(tooltipElement.is, 'etools-info-tooltip');
+        });
+
+        test('check not empty message', function() {
+          var msg = 'Just a message sample!';
+          tooltipElement.set('message', msg);
+          assert.equal(tooltipElement.message, msg);
+        });
+
+        test('check default and changed position', function() {
+          // check default position
+          assert.equal(tooltipElement.position, 'top');
+          // change position an check again
+          var newPos = 'bottom';
+          tooltipElement.set('position', newPos);
+          assert.equal(tooltipElement.position, newPos);
+        });
+
+        test('check tooltip icon', function() {
+          // check default icon
+          assert.equal(tooltipElement.icon, 'info-outline');
+          var ironIcon = Polymer.dom(tooltipElement.root).querySelector('iron-icon');
+          assert.equal(ironIcon.icon, 'info-outline');
+          // change icon and check again
+          var newIcon = 'report-problem';
+          tooltipElement.set('icon', newIcon);
+          assert.equal(tooltipElement.icon, newIcon);
+          assert.equal(ironIcon.icon, newIcon);
+        });
+      });
+    </script>
+  </body>
+</html>

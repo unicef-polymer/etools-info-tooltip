@@ -1,0 +1,110 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../neon-animation/web-animations.html">
+<!--
+`etools-info-tooltip`
+
+Info tooltip element
+
+### Styling
+
+You can use `paper-tooltip` and element variables and mixins to change tooltip style.
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-tooltip-background` | Tooltip background | `#ffffff`
+`--paper-tooltip-opacity` | Tooltip opacity | `1`
+`--paper-tooltip-text-color` | Tooltip text color | `var(--primary-text-color, rgba(0, 0, 0, 0.87)`
+`--paper-tooltip` | Tooltip mixin | `{box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);border: 1px solid rgba(0, 0, 0, 0.15);border-radius: 4px;}`
+`--etools-tooltip-trigger-icon` | Mixin applied to the icon that triggers tooltip open | `{}`
+
+
+You can use `important-warning` attribute and `icon` property to make the field style look like a warning
+(using `--error-color` var) on the UI.
+
+@demo demo/index.html 
+-->
+
+<dom-module id="etools-info-tooltip">
+  <template>
+    <style>
+      :host {
+        --default-tooltip-border-radius: {
+          -webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          border-radius: 4px;
+        };
+        --default-tooltip-box-style: {
+          -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+          -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+          border: 1px solid rgba(0, 0, 0, 0.15);
+        };
+        --important-warning-tooltip-box-style: {
+          -webkit-box-shadow: 0 6px 12px rgba(229, 79, 46, 0.175);
+          -moz-box-shadow: 0 6px 12px rgba(229, 79, 46, 0.175);
+          box-shadow: 0 6px 12px rgba(229, 79, 46, 0.175);
+          border: 1px solid rgba(229, 79, 46, 0.15);
+        };
+
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+
+        --paper-tooltip-background: var(--primary-background-color, #ffffff);
+        --paper-tooltip-opacity: 1;
+        --paper-tooltip-text-color: var(--primary-text-color, rgba(0, 0, 0, 0.87));
+
+        --paper-tooltip: {
+          @apply(--default-tooltip-box-style);
+          @apply(--default-tooltip-border-radius);
+        };
+      }
+
+      iron-icon {
+        margin-left: 16px;
+        @apply(--etools-tooltip-trigger-icon);
+      }
+
+      :host([important-warning]),
+      :host([important-warning]) * {
+        color: var(--error-color, #e54f2e);
+        --paper-tooltip-text-color: var(--error-color, #e54f2e);
+        --paper-tooltip: {
+          @apply(--default-tooltip-border-radius);
+          @apply(--important-warning-tooltip-box-style);
+        }
+      }
+    </style>
+    <!-- element assigned to this tooltip -->
+    <slot></slot>
+    <iron-icon id="tooltip-trigger" icon="[[icon]]"></iron-icon>
+    <paper-tooltip for="tooltip-trigger" position="[[position]]" fit-to-visible-bounds>
+      [[message]]
+    </paper-tooltip>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'etools-info-tooltip',
+
+      properties: {
+        position: {
+          type: String,
+          value: 'top'
+        },
+        message: {
+          type: String,
+          value: ''
+        },
+        icon: {
+          type: String,
+          value: 'info-outline'
+        }
+      },
+
+    });
+  </script>
+</dom-module>
