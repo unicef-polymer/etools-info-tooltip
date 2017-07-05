@@ -21,7 +21,7 @@ Custom property | Description | Default
 `--etools-tooltip-trigger-icon` | Mixin applied to the icon that triggers tooltip open | `{}`
 
 
-You can use `important-warning` attribute and `icon` property to make the field style look like a warning
+You can use `importantWarning` property and `icon` property to make the field style look like a warning
 (using `--error-color` var) on the UI.
 
 @demo demo/index.html 
@@ -30,6 +30,9 @@ You can use `important-warning` attribute and `icon` property to make the field 
 <dom-module id="etools-info-tooltip">
   <template>
     <style>
+      [hidden] {
+        display: none !important;
+      }
       :host {
         --default-tooltip-border-radius: {
           -webkit-border-radius: 4px;
@@ -41,12 +44,14 @@ You can use `important-warning` attribute and `icon` property to make the field 
           -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
           border: 1px solid rgba(0, 0, 0, 0.15);
+          font-size: 14px;
         };
         --important-warning-tooltip-box-style: {
           -webkit-box-shadow: 0 6px 12px rgba(229, 79, 46, 0.175);
           -moz-box-shadow: 0 6px 12px rgba(229, 79, 46, 0.175);
           box-shadow: 0 6px 12px rgba(229, 79, 46, 0.175);
           border: 1px solid rgba(229, 79, 46, 0.15);
+          font-size: 14px;
         };
 
         @apply(--layout-horizontal);
@@ -67,8 +72,7 @@ You can use `important-warning` attribute and `icon` property to make the field 
         @apply(--etools-tooltip-trigger-icon);
       }
 
-      :host([important-warning]),
-      :host([important-warning]) * {
+      :host([important-warning]) {
         color: var(--error-color, #e54f2e);
         --paper-tooltip-text-color: var(--error-color, #e54f2e);
         --paper-tooltip: {
@@ -79,7 +83,7 @@ You can use `important-warning` attribute and `icon` property to make the field 
     </style>
     <!-- element assigned to this tooltip -->
     <slot></slot>
-    <iron-icon id="tooltip-trigger" icon="[[icon]]"></iron-icon>
+    <iron-icon id="tooltip-trigger" icon="[[icon]]" hidden$="[[hideTooltip]]"></iron-icon>
     <paper-tooltip for="tooltip-trigger" position="[[position]]" fit-to-visible-bounds>
       [[message]]
     </paper-tooltip>
@@ -102,9 +106,20 @@ You can use `important-warning` attribute and `icon` property to make the field 
         icon: {
           type: String,
           value: 'info-outline'
+        },
+        hideTooltip: Boolean,
+        importantWarning: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true,
+          observer: '_refreshStyles'
         }
       },
-
+      _refreshStyles: function(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.updateStyles();
+        }
+      }
     });
   </script>
 </dom-module>

@@ -32,7 +32,7 @@ Properties:
 * message - String
 * position - String, Default: `top`
 
-You can use `important-warning` attribute and `icon` property to make the field style look like a warning
+You can use `importantWarning` property and `icon` property to make the field style look like a warning
 (using `--error-color` var) on the UI.
 
 
