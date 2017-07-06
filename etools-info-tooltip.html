@@ -34,36 +34,28 @@ You can use `importantWarning` property and `icon` property to make the field st
         display: none !important;
       }
       :host {
-        --default-tooltip-border-radius: {
-          -webkit-border-radius: 4px;
-          -moz-border-radius: 4px;
-          border-radius: 4px;
+        --tooltip-box-style: {
+          text-align: center;
+          line-height: 1.4;
         };
-        --default-tooltip-box-style: {
+        --light-tooltip-style: {
           -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
           -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
           border: 1px solid rgba(0, 0, 0, 0.15);
-          font-size: 14px;
         };
-        --important-warning-tooltip-box-style: {
-          -webkit-box-shadow: 0 6px 12px rgba(229, 79, 46, 0.175);
-          -moz-box-shadow: 0 6px 12px rgba(229, 79, 46, 0.175);
-          box-shadow: 0 6px 12px rgba(229, 79, 46, 0.175);
-          border: 1px solid rgba(229, 79, 46, 0.15);
-          font-size: 14px;
-        };
-
         @apply(--layout-horizontal);
         @apply(--layout-center);
+      }
 
+      :host([theme="light"]) {
         --paper-tooltip-background: var(--primary-background-color, #ffffff);
         --paper-tooltip-opacity: 1;
         --paper-tooltip-text-color: var(--primary-text-color, rgba(0, 0, 0, 0.87));
 
         --paper-tooltip: {
-          @apply(--default-tooltip-box-style);
-          @apply(--default-tooltip-border-radius);
+          @apply(--tooltip-box-style);
+          @apply(--light-tooltip-style);
         };
       }
 
@@ -74,18 +66,13 @@ You can use `importantWarning` property and `icon` property to make the field st
 
       :host([important-warning]) {
         color: var(--error-color, #e54f2e);
-        --paper-tooltip-text-color: var(--error-color, #e54f2e);
-        --paper-tooltip: {
-          @apply(--default-tooltip-border-radius);
-          @apply(--important-warning-tooltip-box-style);
-        }
       }
     </style>
     <!-- element assigned to this tooltip -->
-    <slot></slot>
+    <slot name="field"></slot>
     <iron-icon id="tooltip-trigger" icon="[[icon]]" hidden$="[[hideTooltip]]"></iron-icon>
-    <paper-tooltip for="tooltip-trigger" position="[[position]]" fit-to-visible-bounds>
-      [[message]]
+    <paper-tooltip for="tooltip-trigger" position="[[position]]">
+      <slot name="message"></slot>
     </paper-tooltip>
   </template>
 
@@ -99,10 +86,6 @@ You can use `importantWarning` property and `icon` property to make the field st
           type: String,
           value: 'top'
         },
-        message: {
-          type: String,
-          value: ''
-        },
         icon: {
           type: String,
           value: 'info-outline'
@@ -113,12 +96,16 @@ You can use `importantWarning` property and `icon` property to make the field st
           value: false,
           reflectToAttribute: true,
           observer: '_refreshStyles'
+        },
+        theme: {
+          type: String,
+          value: 'dark',
+          reflectToAttribute: true,
+          observer: '_refreshStyles'
         }
       },
-      _refreshStyles: function(newVal, oldVal) {
-        if (newVal !== oldVal) {
-          this.updateStyles();
-        }
+      _refreshStyles: function() {
+        this.updateStyles();
       }
     });
   </script>

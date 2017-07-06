@@ -10,27 +10,32 @@ an icon is used to trigger tooltip open.
 
 ## Usage
 ```html
-<etools-info-tooltip message="Tooltip message for this input">
-  <paper-input label="Form input" placeholder="Enter text here..."></paper-input>
+<etools-info-tooltip theme="light">
+  <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
+  <span slot="message">Tooltip message for this input</span>
 </etools-info-tooltip>
 
-<etools-info-tooltip message="Tooltip message for this input" icon="report-problem" important-warning>
-  <paper-input label="Form input" placeholder="Enter text here..."></paper-input>
+<etools-info-tooltip icon="report-problem" important-warning>
+  <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
+  <span slot="message">Tooltip message for this input</span>
 </etools-info-tooltip>
 
-<etools-info-tooltip message="Tooltip message for this text">
-  <span>This is just a simple text.</span>
+<etools-info-tooltip theme="light">
+  <span slot="field">This is just a simple text.</span>
+  <span slot="message">Tooltip message for this text</span>
 </etools-info-tooltip>
 
-<etools-info-tooltip message="Tooltip message for this text" icon="report" important-warning>
-  <span>This is just a simple text.</span>
+<etools-info-tooltip icon="report" important-warning>
+  <span slot="field">This is just a simple text.</span>
+  <span slot="message">Tooltip message <br>for this text</span>
 </etools-info-tooltip>
 ```
 
 Properties:
 * icon - String, default: `info-outline`, only default set of icons can be used
-* message - String
-* position - String, Default: `top`
+* position - String, default: `top`
+* importantWarning - Boolean, default: `false`
+* theme - String, default: `dark` (only `dark` and `light` allowed)
 
 You can use `importantWarning` property and `icon` property to make the field style look like a warning
 (using `--error-color` var) on the UI.

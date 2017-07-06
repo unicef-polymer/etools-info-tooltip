@@ -23,34 +23,31 @@
   <body>
     <div class="vertical-section-container centered">
       <h3>Basic etools-info-tooltip demo</h3>
+
       <demo-snippet>
         <template>
-          <etools-info-tooltip message="Tooltip message for this button">
-            <paper-button raised>Button</paper-button>
+          <etools-info-tooltip theme="light">
+            <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
+            <span slot="message">Tooltip message for this input</span>
+          </etools-info-tooltip>
+
+          <etools-info-tooltip icon="report-problem" important-warning>
+            <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
+            <span slot="message">Tooltip message for this input</span>
           </etools-info-tooltip>
         </template>
       </demo-snippet>
 
       <demo-snippet>
         <template>
-          <etools-info-tooltip message="Tooltip message for this input">
-            <paper-input label="Form input" placeholder="Enter text here..."></paper-input>
+          <etools-info-tooltip theme="light">
+            <span slot="field">This is just a simple text.</span>
+            <span slot="message">Tooltip message for this text</span>
           </etools-info-tooltip>
 
-          <etools-info-tooltip message="Tooltip message for this input" icon="report-problem" important-warning>
-            <paper-input label="Form input" placeholder="Enter text here..."></paper-input>
-          </etools-info-tooltip>
-        </template>
-      </demo-snippet>
-
-      <demo-snippet>
-        <template>
-          <etools-info-tooltip message="Tooltip message for this text">
-            <span>This is just a simple text.</span>
-          </etools-info-tooltip>
-
-          <etools-info-tooltip message="Tooltip message for this text" icon="report" important-warning>
-            <span>This is just a simple text.</span>
+          <etools-info-tooltip icon="report" important-warning>
+            <span slot="field">This is just a simple text.</span>
+            <span slot="message">Tooltip message <br>for this text</span>
           </etools-info-tooltip>
         </template>
       </demo-snippet>
