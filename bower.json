@@ -1,6 +1,8 @@
 {
   "name": "etools-info-tooltip",
   "description": "Info tooltip element",
+  "version": "1.0.0",
+  "license": "https://github.com/unicef-polymer/etools-info-tooltip/blob/master/LICENSE.md",
   "main": "etools-info-tooltip.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
