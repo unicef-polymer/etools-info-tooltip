@@ -48,6 +48,11 @@ You can use `importantWarning` property and `icon` property to make the field st
         @apply(--layout-center);
       }
 
+      :host([icon-first]) {
+        @apply(--layout-horizontal-reverse);
+        @apply(--layout-end-justified);
+      }
+
       :host([theme="light"]) {
         --paper-tooltip-background: var(--primary-background-color, #ffffff);
         --paper-tooltip-opacity: 1;
@@ -59,8 +64,13 @@ You can use `importantWarning` property and `icon` property to make the field st
         };
       }
 
+      :host([icon-first]) iron-icon {
+        margin-left: 0;
+        margin-right: 8px;
+      }
+
       iron-icon {
-        margin-left: 16px;
+        margin-left: 8px;
         @apply(--etools-tooltip-trigger-icon);
       }
 
