@@ -53,6 +53,9 @@ Custom property | Description | Default
 `--paper-tooltip` | Tooltip mixin | `{}`
 `--etools-tooltip-trigger-icon` | Mixin applied to the icon that triggers tooltip open | `{}`
 
+Attributes:
+ * `icon-first` attribute can be used to place the icon in front of the element
+ * `right-aligned` attribute will align the content to the right
 
 ## Install
 ```bash
