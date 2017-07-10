@@ -47,10 +47,15 @@ You can use `importantWarning` property and `icon` property to make the field st
         @apply(--layout-horizontal);
         @apply(--layout-center);
       }
-
+      :host([right-aligned]) {
+        @apply(--layout-end-justified);
+      }
       :host([icon-first]) {
         @apply(--layout-horizontal-reverse);
         @apply(--layout-end-justified);
+      }
+      :host([icon-first][right-aligned]) {
+        @apply(--layout-start-justified);
       }
 
       :host([theme="light"]) {

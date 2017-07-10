@@ -30,12 +30,6 @@
           assert.equal(tooltipElement.is, 'etools-info-tooltip');
         });
 
-        test('check not empty message', function() {
-          var msg = 'Just a message sample!';
-          tooltipElement.set('message', msg);
-          assert.equal(tooltipElement.message, msg);
-        });
-
         test('check default and changed position', function() {
           // check default position
           assert.equal(tooltipElement.position, 'top');
