@@ -86,7 +86,7 @@ You can use `importantWarning` property and `icon` property to make the field st
     <!-- element assigned to this tooltip -->
     <slot name="field"></slot>
     <iron-icon id="tooltip-trigger" icon="[[icon]]" hidden$="[[hideTooltip]]"></iron-icon>
-    <paper-tooltip for="tooltip-trigger" position="[[position]]">
+    <paper-tooltip for="tooltip-trigger" position="[[position]]" fit-to-visible-bounds="[[fitToVisibleBounds]]">
       <slot name="message"></slot>
     </paper-tooltip>
   </template>
@@ -117,6 +117,10 @@ You can use `importantWarning` property and `icon` property to make the field st
           value: 'dark',
           reflectToAttribute: true,
           observer: '_refreshStyles'
+        },
+        fitToVisibleBounds: {
+          type: Boolean,
+          value: true
         }
       },
       _refreshStyles: function() {
