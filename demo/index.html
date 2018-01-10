@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>etools-info-tooltip demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-input/paper-input.html">
+    <link rel="import" href="../etools-info-tooltip.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic etools-info-tooltip demo</h3>
+      <demo-snippet>
+        <template>
+
+          <etools-info-tooltip theme="light">
+            <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
+            <span slot="message">Tooltip message for this input</span>
+          </etools-info-tooltip>
+
+          <etools-info-tooltip icon="report-problem" important-warning>
+            <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
+            <span slot="message">Tooltip message for this input</span>
+          </etools-info-tooltip>
+
+          <etools-info-tooltip theme="light">
+            <span slot="field">This is just a simple text.</span>
+            <span slot="message">Tooltip message for this text</span>
+          </etools-info-tooltip>
+
+          <etools-info-tooltip icon="report" important-warning>
+            <span slot="field">This is just a simple text.</span>
+            <span slot="message">Tooltip message <br>for this text</span>
+          </etools-info-tooltip>
+
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
