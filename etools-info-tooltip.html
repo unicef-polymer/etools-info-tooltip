@@ -85,13 +85,22 @@ You can use `importantWarning` property and `icon` property to make the field st
     </style>
     <!-- element assigned to this tooltip -->
     <slot name="field"></slot>
-    <iron-icon id="tooltip-trigger" icon="[[icon]]" hidden$="[[hideTooltip]]"></iron-icon>
+    <span id="tooltip-trigger">
+      <template is="dom-if" if="[[!customIcon]]" restamp>
+        <iron-icon  icon="[[icon]]" hidden$="[[hideTooltip]]"></iron-icon>
+      </template>
+      <template is="dom-if" if="[[customIcon]]" restamp>
+        <slot name="custom-icon"></slot>
+      </template>
+    </span>
     <paper-tooltip for="tooltip-trigger" position="[[position]]" fit-to-visible-bounds="[[fitToVisibleBounds]]">
       <slot name="message"></slot>
     </paper-tooltip>
   </template>
 
   <script>
+    'use strict';
+
     Polymer({
 
       is: 'etools-info-tooltip',
@@ -104,6 +113,10 @@ You can use `importantWarning` property and `icon` property to make the field st
         icon: {
           type: String,
           value: 'info-outline'
+        },
+        customIcon: {
+          type: Boolean,
+          value: false
         },
         hideTooltip: Boolean,
         importantWarning: {
