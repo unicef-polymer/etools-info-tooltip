@@ -69,13 +69,20 @@ You can use `importantWarning` property and `icon` property to make the field st
         };
       }
 
-      :host([icon-first]) iron-icon {
-        margin-left: 0;
-        margin-right: 8px;
+      :host([form-field-align]) #tooltip-trigger {
+        @apply --layout;
+        @apply --layout-self-end;
+        margin-bottom: 11px;
       }
 
-      iron-icon {
+      :host(:not([icon-first])) #tooltip-trigger {
         margin-left: 8px;
+        @apply(--etools-tooltip-trigger-icon);
+      }
+
+      :host([icon-first]) #tooltip-trigger {
+        margin-left: 0;
+        margin-right: 8px;
         @apply(--etools-tooltip-trigger-icon);
       }
 
@@ -134,6 +141,14 @@ You can use `importantWarning` property and `icon` property to make the field st
         fitToVisibleBounds: {
           type: Boolean,
           value: true
+        },
+        /**
+         * Used to align tooltip icon near a paper-input or a form input that uses paper-input-container
+         */
+        formFieldAlign: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
         }
       },
       _refreshStyles: function() {
