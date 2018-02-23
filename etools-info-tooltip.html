@@ -92,9 +92,9 @@ You can use `importantWarning` property and `icon` property to make the field st
     </style>
     <!-- element assigned to this tooltip -->
     <slot name="field"></slot>
-    <span id="tooltip-trigger">
+    <span id="tooltip-trigger" hidden$="[[hideTooltip]]">
       <template is="dom-if" if="[[!customIcon]]" restamp>
-        <iron-icon  icon="[[icon]]" hidden$="[[hideTooltip]]"></iron-icon>
+        <iron-icon  icon="[[icon]]"></iron-icon>
       </template>
       <template is="dom-if" if="[[customIcon]]" restamp>
         <slot name="custom-icon"></slot>
