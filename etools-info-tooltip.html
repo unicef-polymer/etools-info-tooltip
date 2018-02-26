@@ -100,7 +100,7 @@ You can use `importantWarning` property and `icon` property to make the field st
         <slot name="custom-icon"></slot>
       </template>
     </span>
-    <paper-tooltip for="tooltip-trigger" position="[[position]]" fit-to-visible-bounds="[[fitToVisibleBounds]]">
+    <paper-tooltip id="tooltip" for="tooltip-trigger" position="[[position]]" fit-to-visible-bounds="[[fitToVisibleBounds]]">
       <slot name="message"></slot>
     </paper-tooltip>
   </template>
@@ -151,6 +151,18 @@ You can use `importantWarning` property and `icon` property to make the field st
           reflectToAttribute: true
         }
       },
+
+      attached: function() {
+        let tooltipContent = this.$.tooltip.$.tooltip;
+        if (tooltipContent) {
+          tooltipContent.style.display = "flex";
+          tooltipContent.style.flexDirection = "row";
+          tooltipContent.style.textAlign = "left";
+          tooltipContent.style.lineHeight = "16px";
+          tooltipContent.style.whiteSpace = "pre";
+        }
+      },
+
       _refreshStyles: function() {
         this.updateStyles();
       }
