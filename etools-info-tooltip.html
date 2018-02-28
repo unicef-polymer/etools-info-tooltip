@@ -69,13 +69,20 @@ You can use `importantWarning` property and `icon` property to make the field st
         };
       }
 
-      :host([icon-first]) iron-icon {
-        margin-left: 0;
-        margin-right: 8px;
+      :host([form-field-align]) #tooltip-trigger {
+        @apply --layout;
+        @apply --layout-self-end;
+        margin-bottom: 11px;
       }
 
-      iron-icon {
+      :host(:not([icon-first])) #tooltip-trigger {
         margin-left: 8px;
+        @apply(--etools-tooltip-trigger-icon);
+      }
+
+      :host([icon-first]) #tooltip-trigger {
+        margin-left: 0;
+        margin-right: 8px;
         @apply(--etools-tooltip-trigger-icon);
       }
 
@@ -85,13 +92,22 @@ You can use `importantWarning` property and `icon` property to make the field st
     </style>
     <!-- element assigned to this tooltip -->
     <slot name="field"></slot>
-    <iron-icon id="tooltip-trigger" icon="[[icon]]" hidden$="[[hideTooltip]]"></iron-icon>
-    <paper-tooltip for="tooltip-trigger" position="[[position]]" fit-to-visible-bounds="[[fitToVisibleBounds]]">
+    <span id="tooltip-trigger" hidden$="[[hideTooltip]]">
+      <template is="dom-if" if="[[!customIcon]]" restamp>
+        <iron-icon  icon="[[icon]]"></iron-icon>
+      </template>
+      <template is="dom-if" if="[[customIcon]]" restamp>
+        <slot name="custom-icon"></slot>
+      </template>
+    </span>
+    <paper-tooltip id="tooltip" for="tooltip-trigger" position="[[position]]" fit-to-visible-bounds="[[fitToVisibleBounds]]">
       <slot name="message"></slot>
     </paper-tooltip>
   </template>
 
   <script>
+    'use strict';
+
     Polymer({
 
       is: 'etools-info-tooltip',
@@ -104,6 +120,10 @@ You can use `importantWarning` property and `icon` property to make the field st
         icon: {
           type: String,
           value: 'info-outline'
+        },
+        customIcon: {
+          type: Boolean,
+          value: false
         },
         hideTooltip: Boolean,
         importantWarning: {
@@ -121,8 +141,28 @@ You can use `importantWarning` property and `icon` property to make the field st
         fitToVisibleBounds: {
           type: Boolean,
           value: true
+        },
+        /**
+         * Used to align tooltip icon near a paper-input or a form input that uses paper-input-container
+         */
+        formFieldAlign: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
         }
       },
+
+      attached: function() {
+        let tooltipContent = this.$.tooltip.$.tooltip;
+        if (tooltipContent) {
+          tooltipContent.style.display = "flex";
+          tooltipContent.style.flexDirection = "row";
+          tooltipContent.style.textAlign = "left";
+          tooltipContent.style.lineHeight = "16px";
+          tooltipContent.style.whiteSpace = "pre-wrap";
+        }
+      },
+
       _refreshStyles: function() {
         this.updateStyles();
       }
