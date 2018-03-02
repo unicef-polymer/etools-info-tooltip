@@ -29,7 +29,7 @@
             <span slot="message">Tooltip message for this input</span>
           </etools-info-tooltip>
 
-          <etools-info-tooltip icon="report-problem" important-warning>
+          <etools-info-tooltip icon="report-problem" right-aligned icon-first important-warning>
             <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
             <span slot="message">Tooltip message for this input</span>
           </etools-info-tooltip>
@@ -39,11 +39,21 @@
             <span slot="message">Tooltip message for this text</span>
           </etools-info-tooltip>
 
-          <etools-info-tooltip icon="report" important-warning>
+          <etools-info-tooltip icon="report" right-aligned icon-first important-warning>
             <span slot="field">This is just a simple text.</span>
             <span slot="message">Tooltip message <br>for this text</span>
           </etools-info-tooltip>
 
+        </template>
+      </demo-snippet>
+
+      <demo-snippet>
+        <template>
+          <etools-info-tooltip theme="light" icon-first custom-icon>
+            <span slot="field">This is just a simple text.</span>
+            <iron-icon slot="custom-icon" icon="add-alert"></iron-icon>
+            <span slot="message">Tooltip message for this text</span>
+          </etools-info-tooltip>
         </template>
       </demo-snippet>
     </div>
