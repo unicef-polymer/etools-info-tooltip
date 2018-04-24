@@ -10,6 +10,7 @@
       [hidden] {
         display: none !important;
       }
+
       :host {
         --tooltip-box-style: {
           text-align: center;
@@ -24,13 +25,16 @@
         @apply --layout-horizontal;
         @apply --layout-center;
       }
+
       :host([right-aligned]) {
         @apply --layout-end-justified;
       }
+
       :host([icon-first]) {
         @apply --layout-horizontal-reverse;
         @apply --layout-end-justified;
       }
+
       :host([icon-first][right-aligned]) {
         @apply --layout-start-justified;
       }
@@ -54,13 +58,13 @@
 
       :host(:not([icon-first])) #tooltip-trigger {
         margin-left: 8px;
-        @apply(--etools-tooltip-trigger-icon);
+        @apply --etools-tooltip-trigger-icon;
       }
 
       :host([icon-first]) #tooltip-trigger {
         margin-left: 0;
         margin-right: 8px;
-        @apply(--etools-tooltip-trigger-icon);
+        @apply --etools-tooltip-trigger-icon;
       }
 
       :host([important-warning]:not([hide-tooltip])) {
@@ -71,19 +75,21 @@
     <slot name="field"></slot>
     <span id="tooltip-trigger" hidden$="[[hideTooltip]]">
       <template is="dom-if" if="[[!customIcon]]" restamp>
-        <iron-icon  icon="[[icon]]"></iron-icon>
+        <iron-icon icon="[[icon]]"></iron-icon>
       </template>
       <template is="dom-if" if="[[customIcon]]" restamp>
         <slot name="custom-icon"></slot>
       </template>
     </span>
-    <paper-tooltip id="tooltip" for="tooltip-trigger" position="[[position]]" fit-to-visible-bounds="[[fitToVisibleBounds]]">
+    <paper-tooltip id="tooltip" for="tooltip-trigger" position="[[position]]"
+                   fit-to-visible-bounds="[[fitToVisibleBounds]]">
       <slot name="message"></slot>
     </paper-tooltip>
   </template>
 
   <script>
     'use strict';
+
     /**
      * `etools-info-tooltip`
      * Tooltip element associated with form elements (or any other element), an icon is used to trigger tooltip open.
@@ -93,7 +99,10 @@
      * @demo demo/index.html
      */
     class EtoolsInfoTooltip extends Polymer.Element {
-      static get is() { return 'etools-info-tooltip'; }
+      static get is() {
+        return 'etools-info-tooltip';
+      }
+
       static get properties() {
         return {
           position: {
@@ -140,11 +149,11 @@
         super.connectedCallback();
         let tooltipContent = this.$.tooltip.$.tooltip;
         if (tooltipContent) {
-          tooltipContent.style.display = "flex";
-          tooltipContent.style.flexDirection = "row";
-          tooltipContent.style.textAlign = "left";
-          tooltipContent.style.lineHeight = "16px";
-          tooltipContent.style.whiteSpace = "pre-wrap";
+          tooltipContent.style.display = 'flex';
+          tooltipContent.style.flexDirection = 'row';
+          tooltipContent.style.textAlign = 'left';
+          tooltipContent.style.lineHeight = '16px';
+          tooltipContent.style.whiteSpace = 'pre-wrap';
         }
       }
 
