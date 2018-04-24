@@ -62,34 +62,20 @@ Attributes:
 $ bower install --save etools-info-tooltip
 ```
 
-## Preview element locally
+## Install the Polymer-CLI
 
-Install needed dependencies by running: `$ bower install`.
-Make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `$ polymer serve` to serve your element application locally.
+First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your element locally.
 
-## Linting the code
+## Viewing Your Element
 
-Innstall local npm packages (run `npm install`)
-Then just run the linting task
-
-```bash
-$ npm run lint
 ```
-You should also use polylint. If you don't have Polylint installed run `npm install -g polylint`.
-Then just run the linter on each file you wish to check like so
-
-```bash
-$ polylint -i filename.html
+$ polymer serve
 ```
-At the moment polylint crashes if it encounters a missing import. If that happens, temporarily comment out such imports and run the command again.
 
 ## Running Tests
 
-You need to have `web-component-tester` installed (if not run `npm install -g web-component-tester`)
-```bash
-$ wct
 ```
-or
-```bash
-$ wct -p
+$ polymer test
 ```
+
+Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
