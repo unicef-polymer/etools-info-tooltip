@@ -1,73 +1,73 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>etools-info-tooltip demo</title>
+  <title>etools-info-tooltip demo</title>
 
-    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
-    <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
-    <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-snippet.js"></script>
-    <script type="module" src="../node_modules/@polymer/paper-input/paper-input.js"></script>
-    <script type="module" src="../etools-info-tooltip.js"></script>
+  <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+  <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-snippet.js"></script>
+  <script type="module" src="../node_modules/@polymer/paper-input/paper-input.js"></script>
+  <script type="module" src="../etools-info-tooltip.js"></script>
 
-    <style is="custom-style" include="demo-pages-shared-styles">
-        .vertical-section-container {
-            max-width: 900px;
-            line-height: 1.456;
-        }
+  <style is="custom-style" include="demo-pages-shared-styles">
+    .vertical-section-container {
+      max-width: 900px;
+      line-height: 1.456;
+    }
 
-        .content {
-            position: relative;
-            width: 100%;
-            height: 300px;
-        }
-    </style>
+    .content {
+      position: relative;
+      width: 100%;
+      height: 300px;
+    }
+  </style>
 
 </head>
 <body>
 
 <div class="vertical-section-container centered">
-    <h3>Basic etools-info-tooltip demo</h3>
+  <h3>Basic etools-info-tooltip demo</h3>
 
-    <demo-snippet>
-        <template>
-            <div class="content">
-                <etools-info-tooltip theme="light">
-                    <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
-                    <span slot="message">Tooltip message for this input</span>
-                </etools-info-tooltip>
+  <demo-snippet>
+    <template>
+      <div class="content">
+        <etools-info-tooltip theme="light">
+          <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
+          <span slot="message">Tooltip message for this input</span>
+        </etools-info-tooltip>
 
-                <etools-info-tooltip icon="report-problem" right-aligned="" icon-first="" important-warning="">
-                    <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
-                    <span slot="message">Tooltip message for this input</span>
-                </etools-info-tooltip>
+        <etools-info-tooltip icon="report-problem" right-aligned="" icon-first="" important-warning="">
+          <paper-input slot="field" label="Form input" placeholder="Enter text here..."></paper-input>
+          <span slot="message">Tooltip message for this input</span>
+        </etools-info-tooltip>
 
-                <etools-info-tooltip theme="light">
-                    <span slot="field">This is just a simple text.</span>
-                    <span slot="message">Tooltip message for this text</span>
-                </etools-info-tooltip>
+        <etools-info-tooltip theme="light">
+          <span slot="field">This is just a simple text.</span>
+          <span slot="message">Tooltip message for this text</span>
+        </etools-info-tooltip>
 
-                <etools-info-tooltip icon="report" right-aligned="" icon-first="" important-warning="">
-                    <span slot="field">This is just a simple text.</span>
-                    <span slot="message">Tooltip message <br>for this text</span>
-                </etools-info-tooltip>
-            </div>
+        <etools-info-tooltip icon="report" right-aligned="" icon-first="" important-warning="">
+          <span slot="field">This is just a simple text.</span>
+          <span slot="message">Tooltip message <br>for this text</span>
+        </etools-info-tooltip>
+      </div>
 
-        </template>
-    </demo-snippet>
+    </template>
+  </demo-snippet>
 
-    <demo-snippet>
-        <template>
-            <etools-info-tooltip theme="light" icon-first="" custom-icon="">
-                <span slot="field">This is just a simple text.</span>
-                <iron-icon slot="custom-icon" icon="add-alert"></iron-icon>
-                <span slot="message">Tooltip message for this text</span>
-            </etools-info-tooltip>
-        </template>
-    </demo-snippet>
+  <demo-snippet>
+    <template>
+      <etools-info-tooltip theme="light" icon-first="" custom-icon="">
+        <span slot="field">This is just a simple text.</span>
+        <iron-icon slot="custom-icon" icon="add-alert"></iron-icon>
+        <span slot="message">Tooltip message for this text</span>
+      </etools-info-tooltip>
+    </template>
+  </demo-snippet>
 
 </div>
 
