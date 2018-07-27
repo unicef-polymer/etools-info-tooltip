@@ -174,39 +174,39 @@ class EtoolsInfoTooltip extends PolymerElement {
 
   _openOnClickChanged(openOnClick) {
     if (openOnClick) {
-      this.addClickEventListeners();
+      this._addClickEventListeners();
     } else {
-      this.removeClickEventListeners();
+      this._removeClickEventListeners();
     }
   }
 
-  addClickEventListeners() {
+  _addClickEventListeners() {
     let target = this.$['tooltip-trigger'];
     if (target) {
-      target.addEventListener('click', this.openTooltip.bind(this));
-      target.addEventListener('focus', this.openTooltip.bind(this));
-      target.addEventListener('mouseenter', this.openTooltip.bind(this));
-      target.addEventListener('blur', this.closeTooltip.bind(this));
-      target.addEventListener('mouseleave', this.closeTooltip.bind(this));
+      target.addEventListener('click', this._openTooltip.bind(this));
+      target.addEventListener('focus', this._openTooltip.bind(this));
+      target.addEventListener('mouseenter', this._openTooltip.bind(this));
+      target.addEventListener('blur', this._closeTooltip.bind(this));
+      target.addEventListener('mouseleave', this._closeTooltip.bind(this));
     }
   }
 
-  removeClickEventListeners() {
+  _removeClickEventListeners() {
     let target = this.$['tooltip-trigger'];
     if (target) {
-      target.removeEventListener('click', this.openTooltip);
-      target.removeEventListener('focus', this.openTooltip);
-      target.removeEventListener('mouseenter', this.openTooltip);
-      target.removeEventListener('blur', this.closeTooltip);
-      target.removeEventListener('mouseleave', this.closeTooltip);
+      target.removeEventListener('click', this._openTooltip);
+      target.removeEventListener('focus', this._openTooltip);
+      target.removeEventListener('mouseenter', this._openTooltip);
+      target.removeEventListener('blur', this._closeTooltip);
+      target.removeEventListener('mouseleave', this._closeTooltip);
     }
   }
 
-  openTooltip() {
+  _openTooltip() {
     this.$.tooltip.show();
   }
 
-  closeTooltip() {
+  _closeTooltip() {
     this.$.tooltip.hide();
   }
 
