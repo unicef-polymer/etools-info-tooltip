@@ -94,7 +94,7 @@ class EtoolsInfoTooltip extends PolymerElement {
       <paper-tooltip id="tooltip"
                      for="tooltip-trigger"
                      position="[[position]]"
-                     manual-mode="[[openOnTap]]"
+                     manual-mode="[[openOnClick]]"
                      fit-to-visible-bounds="[[fitToVisibleBounds]]">
         <slot name="message"></slot>
       </paper-tooltip>
@@ -137,10 +137,10 @@ class EtoolsInfoTooltip extends PolymerElement {
         value: true
       },
 
-      openOnTap: {
+      openOnClick: {
         type: Boolean,
         value: false,
-        observer: '_openOnTapChanged'
+        observer: '_openOnClickChanged'
       },
       /**
        * Used to align tooltip icon near a paper-input or a form input that uses paper-input-container
@@ -172,8 +172,8 @@ class EtoolsInfoTooltip extends PolymerElement {
     this.updateStyles();
   }
 
-  _openOnTapChanged(openOnTap) {
-    if (openOnTap) {
+  _openOnClickChanged(openOnClick) {
+    if (openOnClick) {
       this.addClickEventListeners();
     } else {
       this.removeClickEventListeners();
