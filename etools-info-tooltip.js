@@ -91,7 +91,10 @@ class EtoolsInfoTooltip extends PolymerElement {
           <slot name="custom-icon"></slot>
         </template>
       </span>
-      <paper-tooltip id="tooltip" for="tooltip-trigger" position="[[position]]"
+      <paper-tooltip id="tooltip"
+                     for="tooltip-trigger"
+                     position="[[position]]"
+                     manual-mode="[[openOnClick]]"
                      fit-to-visible-bounds="[[fitToVisibleBounds]]">
         <slot name="message"></slot>
       </paper-tooltip>
@@ -133,6 +136,12 @@ class EtoolsInfoTooltip extends PolymerElement {
         type: Boolean,
         value: true
       },
+
+      openOnClick: {
+        type: Boolean,
+        value: false,
+        observer: '_openOnClickChanged'
+      },
       /**
        * Used to align tooltip icon near a paper-input or a form input that uses paper-input-container
        */
@@ -162,6 +171,45 @@ class EtoolsInfoTooltip extends PolymerElement {
     }
     this.updateStyles();
   }
+
+  _openOnClickChanged(openOnClick) {
+    if (openOnClick) {
+      this._addClickEventListeners();
+    } else {
+      this._removeClickEventListeners();
+    }
+  }
+
+  _addClickEventListeners() {
+    let target = this.$['tooltip-trigger'];
+    if (target) {
+      target.addEventListener('click', this._openTooltip.bind(this));
+      target.addEventListener('focus', this._openTooltip.bind(this));
+      target.addEventListener('mouseenter', this._openTooltip.bind(this));
+      target.addEventListener('blur', this._closeTooltip.bind(this));
+      target.addEventListener('mouseleave', this._closeTooltip.bind(this));
+    }
+  }
+
+  _removeClickEventListeners() {
+    let target = this.$['tooltip-trigger'];
+    if (target) {
+      target.removeEventListener('click', this._openTooltip);
+      target.removeEventListener('focus', this._openTooltip);
+      target.removeEventListener('mouseenter', this._openTooltip);
+      target.removeEventListener('blur', this._closeTooltip);
+      target.removeEventListener('mouseleave', this._closeTooltip);
+    }
+  }
+
+  _openTooltip() {
+    this.$.tooltip.show();
+  }
+
+  _closeTooltip() {
+    this.$.tooltip.hide();
+  }
+
 }
 
 window.customElements.define(EtoolsInfoTooltip.is, EtoolsInfoTooltip);
