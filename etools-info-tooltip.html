@@ -12,6 +12,7 @@
       }
 
       :host {
+        --paper-tooltip-delay-in: 0;
         --tooltip-box-style: {
           text-align: center;
           line-height: 1.4;
@@ -81,7 +82,7 @@
         <slot name="custom-icon"></slot>
       </template>
     </span>
-    <paper-tooltip id="tooltip" for="tooltip-trigger" position="[[position]]"
+    <paper-tooltip id="tooltip" for="tooltip-trigger" position="[[position]]" animation-delay="[[animationDelay]]"
                    fit-to-visible-bounds="[[fitToVisibleBounds]]">
       <slot name="message"></slot>
     </paper-tooltip>
@@ -108,6 +109,10 @@
           position: {
             type: String,
             value: 'top'
+          },
+          animationDelay: {
+            type: Number,
+            value: 0
           },
           icon: {
             type: String,
