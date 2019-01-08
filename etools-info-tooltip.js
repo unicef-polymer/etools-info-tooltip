@@ -22,6 +22,7 @@ class EtoolsInfoTooltip extends PolymerElement {
         }
 
         :host {
+          --paper-tooltip-delay-in: 0;
           --tooltip-box-style: {
             text-align: center;
             line-height: 1.4;
@@ -94,6 +95,7 @@ class EtoolsInfoTooltip extends PolymerElement {
       <paper-tooltip id="tooltip"
                      for="tooltip-trigger"
                      position="[[position]]"
+                     animation-delay="[[animationDelay]]"
                      manual-mode="[[openOnClick]]"
                      fit-to-visible-bounds="[[fitToVisibleBounds]]">
         <slot name="message"></slot>
@@ -110,6 +112,10 @@ class EtoolsInfoTooltip extends PolymerElement {
       position: {
         type: String,
         value: 'top'
+      },
+      animationDelay: {
+        type: Number,
+        value: 0
       },
       icon: {
         type: String,

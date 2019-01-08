@@ -58,24 +58,26 @@ Attributes:
  * `right-aligned` attribute will align the content to the right
 
 ## Install
+TODO: create npm package
 ```bash
-$ bower install --save etools-info-tooltip
+$ npm i --save unicef-polymer/etools-info-tooltip#branch_name
 ```
 
-## Install the Polymer-CLI
+## Linting the code
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your element locally.
+Install local npm packages (run `npm install`)
+Then just run the linting task
 
-## Viewing Your Element
-
+```bash
+$ npm run lint
 ```
-$ polymer serve
-```
+
+## Preview element locally
+Install needed dependencies by running: `$ npm install`.
+Make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `$ polymer serve` to serve your element application locally.
 
 ## Running Tests
-
+TODO: improve and add more tests
 ```
 $ polymer test
 ```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
