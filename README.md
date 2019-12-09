@@ -3,10 +3,12 @@
 Tooltip element associated with form elements (or any other element), 
 an icon is used to trigger tooltip open.
 
-![paper-input tooltip](screenshots/tooltip_for_paper_input.png)
-![paper-input-tooltip important warning](screenshots/tooltip_important_warning_for_paper_input.png)
-![text element important warning tooltip](screenshots/tooltip-important-warnin_text_elementg.png)
-![text element tooltip](screenshots/tooltip_text_element.png)
+Check demo for more details (`npm i`, `polymer serve`).
+
+![paper-input tooltip](https://raw.githubusercontent.com/unicef-polymer/etools-info-tooltip/HEAD/screenshots/tooltip_for_paper_input.png)
+![paper-input-tooltip important warning](https://raw.githubusercontent.com/unicef-polymer/etools-info-tooltip/HEAD/screenshots/tooltip_important_warning_for_paper_input.png)
+![text element important warning tooltip](https://raw.githubusercontent.com/unicef-polymer/etools-info-tooltip/HEAD/screenshots/tooltip-important-warnin_text_elementg.png)
+![text element tooltip](https://raw.githubusercontent.com/unicef-polymer/etools-info-tooltip/HEAD/screenshots/tooltip_text_element.png)
 
 ## Usage
 ```html
@@ -58,9 +60,8 @@ Attributes:
  * `right-aligned` attribute will align the content to the right
 
 ## Install
-TODO: create npm package
 ```bash
-$ npm i --save unicef-polymer/etools-info-tooltip#branch_name
+$ npm i --save @unicef-polymer/etools-info-tooltip
 ```
 
 ## Linting the code
