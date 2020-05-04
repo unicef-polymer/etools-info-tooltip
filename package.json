@@ -1,13 +1,41 @@
 {
-  "name": "etools-info-tooltip",
-  "version": "2.0.0",
+  "name": "@unicef-polymer/etools-info-tooltip",
+  "description": "Tooltip element associated with form elements (or any other element). An icon is used to trigger tooltip open.",
+  "version": "3.0.0",
+  "main": "etools-info-tooltip.js",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/unicef-polymer/etools-info-tooltip",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unicef-polymer/etools-info-tooltip.git"
+  },
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.0",
-    "eslint-plugin-html": "^2.0.0"
+    "eslint-plugin-html": "^2.0.0",
+    "@polymer/iron-demo-helpers": "^3.0.0",
+    "wct-browser-legacy": "^0.0.1-pre.11",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "@polymer/iron-component-page": "^4.0.0",
+    "@polymer/paper-input": "^3.0.0",
+    "@polymer/gen-typescript-declarations": "^1.6.0"
   },
   "scripts": {
     "lint:javascript": "eslint . --ext js,html && polymer lint && exit 0",
-    "lint": "npm run lint:javascript && polymer lint && exit 0"
+    "lint": "npm run lint:javascript && polymer lint && exit 0",
+    "gen-typings": "gen-typescript-declarations --deleteExisting --outDir './'"
+  },
+  "resolutions": {
+    "inherits": "2.0.3",
+    "samsam": "1.1.3",
+    "supports-color": "3.1.2",
+    "type-detect": "1.0.0"
+  },
+  "dependencies": {
+    "@polymer/polymer": "^3.0.0",
+    "@polymer/paper-tooltip": "^3.0.0",
+    "@polymer/neon-animation": "^3.0.0",
+    "@polymer/iron-icons": "^3.0.0",
+    "@polymer/iron-flex-layout": "^3.0.0"
   }
 }
