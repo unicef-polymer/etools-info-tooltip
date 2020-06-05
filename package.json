@@ -1,8 +1,9 @@
 {
   "name": "@unicef-polymer/etools-info-tooltip",
   "description": "Tooltip element associated with form elements (or any other element). An icon is used to trigger tooltip open.",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "etools-info-tooltip.js",
+  "module": "etools-info-tooltip.js",
   "license": "Apache-2.0",
   "homepage": "https://github.com/unicef-polymer/etools-info-tooltip",
   "repository": {
@@ -10,15 +11,16 @@
     "url": "https://github.com/unicef-polymer/etools-info-tooltip.git"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
+    "eslint": "^7.1.0",
     "eslint-config-google": "^0.7.0",
     "eslint-plugin-html": "^2.0.0",
     "@polymer/iron-demo-helpers": "^3.0.0",
     "wct-browser-legacy": "^0.0.1-pre.11",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
-    "@polymer/iron-component-page": "^4.0.0",
-    "@polymer/paper-input": "^3.0.0",
-    "@polymer/gen-typescript-declarations": "^1.6.0"
+    "@webcomponents/webcomponentsjs": "^2.4.3",
+    "@polymer/iron-component-page": "^4.0.1",
+    "@polymer/paper-input": "^3.2.1",
+    "@polymer/gen-typescript-declarations": "^1.6.2",
+    "js-yaml": "^3.14.0"
   },
   "scripts": {
     "lint:javascript": "eslint . --ext js,html && polymer lint && exit 0",
@@ -32,10 +34,10 @@
     "type-detect": "1.0.0"
   },
   "dependencies": {
-    "@polymer/polymer": "^3.0.0",
-    "@polymer/paper-tooltip": "^3.0.0",
-    "@polymer/neon-animation": "^3.0.0",
-    "@polymer/iron-icons": "^3.0.0",
-    "@polymer/iron-flex-layout": "^3.0.0"
+    "@polymer/polymer": "^3.4.1",
+    "@polymer/paper-tooltip": "^3.0.1",
+    "@polymer/neon-animation": "^3.0.1",
+    "@polymer/iron-icons": "^3.0.1",
+    "@polymer/iron-flex-layout": "^3.0.1"
   }
 }
