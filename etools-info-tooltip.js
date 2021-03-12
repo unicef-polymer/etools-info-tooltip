@@ -90,6 +90,7 @@ class EtoolsInfoTooltip extends PolymerElement {
         :host iron-icon:focus-visible {
           outline: 0;
           box-shadow: 0 0 5px 5px rgba(170, 165, 165, 0.3);
+          background-color: rgba(170, 165, 165, 0.2);
         }
       </style>
       <!-- element assigned to this tooltip -->
