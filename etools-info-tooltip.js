@@ -215,16 +215,14 @@ class EtoolsInfoTooltip extends PolymerElement {
       const elTooltip = event.path[0].closest('#tooltip-trigger');
       if(elTooltip) {
         // Show the tooltip
-        const mouseenterEvent = new Event('mouseenter');
-        elTooltip.dispatchEvent(mouseenterEvent);
+        elTooltip.dispatchEvent(new Event('mouseenter'));
       }
       return false;
     } else {
       // Close the tooltip if opened
       const elTooltip = event.path[0].closest('#tooltip-trigger');
       if(elTooltip) {
-        const mouseleaveEvent = new Event('mouseleave');
-        elTooltip.dispatchEvent(mouseleaveEvent);
+        elTooltip.dispatchEvent(new Event('mouseleave'));
       }
     }
   }
