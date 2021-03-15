@@ -33,6 +33,9 @@ class EtoolsInfoTooltip extends PolymerElement {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
             border: 1px solid rgba(0, 0, 0, 0.15);
           };
+          --paper-tooltip: {
+            font-size: 12px;
+          }
           @apply --layout-horizontal;
           @apply --layout-center;
         }
@@ -81,15 +84,23 @@ class EtoolsInfoTooltip extends PolymerElement {
         :host([important-warning]:not([hide-tooltip])) {
           color: var(--error-color, #e54f2e);
         }
+        :host iron-icon:focus:not(:focus-visible)  {
+          outline: 0;
+        }
+        :host iron-icon:focus-visible {
+          outline: 0;
+          box-shadow: 0 0 5px 5px rgba(170, 165, 165, 0.3);
+          background-color: rgba(170, 165, 165, 0.2);
+        }
       </style>
       <!-- element assigned to this tooltip -->
       <slot name="field"></slot>
       <span id="tooltip-trigger" hidden\$="[[hideTooltip]]">
         <template is="dom-if" if="[[!customIcon]]" restamp>
-          <iron-icon icon="[[icon]]"></iron-icon>
+          <iron-icon icon="[[icon]]" on-keydown="activateOnEnterAndSpace" tabindex="0"></iron-icon>
         </template>
         <template is="dom-if" if="[[customIcon]]" restamp>
-          <slot name="custom-icon"></slot>
+          <slot name="custom-icon" on-keydown="activateOnEnterAndSpace" tabindex="0"></slot>
         </template>
       </span>
       <paper-tooltip id="tooltip"
@@ -194,6 +205,26 @@ class EtoolsInfoTooltip extends PolymerElement {
       target.addEventListener('mouseenter', this._openTooltip.bind(this));
       target.addEventListener('blur', this._closeTooltip.bind(this));
       target.addEventListener('mouseleave', this._closeTooltip.bind(this));
+    }
+  }
+
+  activateOnEnterAndSpace(event) {
+    if ((event.key === ' ' && !event.ctrlKey) || event.key === 'Enter') {
+      // Cancel the default action, if needed
+      event.preventDefault();
+
+      const elTooltip = event.path[0].closest('#tooltip-trigger');
+      if(elTooltip) {
+        // Show the tooltip
+        elTooltip.dispatchEvent(new Event('mouseenter'));
+      }
+      return false;
+    } else {
+      // Close the tooltip if opened
+      const elTooltip = event.path[0].closest('#tooltip-trigger');
+      if(elTooltip) {
+        elTooltip.dispatchEvent(new Event('mouseleave'));
+      }
     }
   }
 
