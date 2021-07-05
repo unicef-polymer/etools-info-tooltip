@@ -108,6 +108,9 @@ class EtoolsInfoTooltip extends PolymerElement {
                      position="[[position]]"
                      animation-delay="[[animationDelay]]"
                      manual-mode="[[openOnClick]]"
+                     animation-config="[[noAnimationConfig]]"
+                     animation-entry=""
+                     animation-exit=""
                      fit-to-visible-bounds="[[fitToVisibleBounds]]">
         <slot name="message"></slot>
       </paper-tooltip>
@@ -152,6 +155,10 @@ class EtoolsInfoTooltip extends PolymerElement {
       fitToVisibleBounds: {
         type: Boolean,
         value: true
+      },
+      noAnimationConfig: {
+        type: Object,
+        value: {}
       },
 
       openOnClick: {
