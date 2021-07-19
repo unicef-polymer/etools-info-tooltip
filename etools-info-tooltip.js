@@ -84,10 +84,10 @@ class EtoolsInfoTooltip extends PolymerElement {
         :host([important-warning]:not([hide-tooltip])) {
           color: var(--error-color, #e54f2e);
         }
-        :host iron-icon:focus:not(:focus-visible)  {
+        :host #tooltip-trigger:focus:not(:focus-visible)  {
           outline: 0;
         }
-        :host iron-icon:focus-visible {
+        :host #tooltip-trigger:focus-visible {
           outline: 0;
           box-shadow: 0 0 5px 5px rgba(170, 165, 165, 0.3);
           background-color: rgba(170, 165, 165, 0.2);
@@ -95,12 +95,12 @@ class EtoolsInfoTooltip extends PolymerElement {
       </style>
       <!-- element assigned to this tooltip -->
       <slot name="field"></slot>
-      <span id="tooltip-trigger" hidden\$="[[hideTooltip]]">
+      <span id="tooltip-trigger" hidden\$="[[hideTooltip]]" tabindex="0">
         <template is="dom-if" if="[[!customIcon]]" restamp>
-          <iron-icon icon="[[icon]]" on-keydown="activateOnEnterAndSpace" tabindex="0"></iron-icon>
+          <iron-icon icon="[[icon]]"></iron-icon>
         </template>
         <template is="dom-if" if="[[customIcon]]" restamp>
-          <slot name="custom-icon" on-keydown="activateOnEnterAndSpace" tabindex="0"></slot>
+          <slot name="custom-icon"></slot>
         </template>
       </span>
       <paper-tooltip id="tooltip"
@@ -108,6 +108,9 @@ class EtoolsInfoTooltip extends PolymerElement {
                      position="[[position]]"
                      animation-delay="[[animationDelay]]"
                      manual-mode="[[openOnClick]]"
+                     animation-config="[[noAnimationConfig]]"
+                     animation-entry=""
+                     animation-exit=""
                      fit-to-visible-bounds="[[fitToVisibleBounds]]">
         <slot name="message"></slot>
       </paper-tooltip>
@@ -153,10 +156,14 @@ class EtoolsInfoTooltip extends PolymerElement {
         type: Boolean,
         value: true
       },
+      noAnimationConfig: {
+        type: Object,
+        value: {}
+      },
 
       openOnClick: {
         type: Boolean,
-        value: false,
+        value: true,
         observer: '_openOnClickChanged'
       },
       /**
@@ -166,6 +173,9 @@ class EtoolsInfoTooltip extends PolymerElement {
         type: Boolean,
         value: false,
         reflectToAttribute: true
+      },
+      tooltipHandler: {
+        type: Object
       }
     };
   }
@@ -202,29 +212,9 @@ class EtoolsInfoTooltip extends PolymerElement {
     if (target) {
       target.addEventListener('click', this._openTooltip.bind(this));
       target.addEventListener('focus', this._openTooltip.bind(this));
-      target.addEventListener('mouseenter', this._openTooltip.bind(this));
+      // target.addEventListener('mouseenter', this._openTooltip.bind(this));
       target.addEventListener('blur', this._closeTooltip.bind(this));
       target.addEventListener('mouseleave', this._closeTooltip.bind(this));
-    }
-  }
-
-  activateOnEnterAndSpace(event) {
-    if ((event.key === ' ' && !event.ctrlKey) || event.key === 'Enter') {
-      // Cancel the default action, if needed
-      event.preventDefault();
-
-      const elTooltip = event.path[0].closest('#tooltip-trigger');
-      if(elTooltip) {
-        // Show the tooltip
-        elTooltip.dispatchEvent(new Event('mouseenter'));
-      }
-      return false;
-    } else {
-      // Close the tooltip if opened
-      const elTooltip = event.path[0].closest('#tooltip-trigger');
-      if(elTooltip) {
-        elTooltip.dispatchEvent(new Event('mouseleave'));
-      }
     }
   }
 
@@ -233,7 +223,7 @@ class EtoolsInfoTooltip extends PolymerElement {
     if (target) {
       target.removeEventListener('click', this._openTooltip);
       target.removeEventListener('focus', this._openTooltip);
-      target.removeEventListener('mouseenter', this._openTooltip);
+      // target.removeEventListener('mouseenter', this._openTooltip);
       target.removeEventListener('blur', this._closeTooltip);
       target.removeEventListener('mouseleave', this._closeTooltip);
     }
