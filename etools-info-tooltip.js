@@ -56,10 +56,7 @@ class EtoolsInfoTooltip extends PolymerElement {
         :host([theme='light']) {
           --paper-tooltip-background: var(--primary-background-color, #ffffff);
           --paper-tooltip-opacity: 1;
-          --paper-tooltip-text-color: var(
-            --primary-text-color,
-            rgba(0, 0, 0, 0.87)
-          );
+          --paper-tooltip-text-color: var(--primary-text-color, rgba(0, 0, 0, 0.87));
 
           --paper-tooltip: {
             @apply --tooltip-box-style;
@@ -131,46 +128,46 @@ class EtoolsInfoTooltip extends PolymerElement {
     return {
       position: {
         type: String,
-        value: 'top',
+        value: 'top'
       },
       animationDelay: {
         type: Number,
-        value: 0,
+        value: 0
       },
       icon: {
         type: String,
-        value: 'info-outline',
+        value: 'info-outline'
       },
       customIcon: {
         type: Boolean,
-        value: false,
+        value: false
       },
       hideTooltip: Boolean,
       importantWarning: {
         type: Boolean,
         value: false,
         reflectToAttribute: true,
-        observer: '_refreshStyles',
+        observer: '_refreshStyles'
       },
       theme: {
         type: String,
         value: 'dark',
         reflectToAttribute: true,
-        observer: '_refreshStyles',
+        observer: '_refreshStyles'
       },
       fitToVisibleBounds: {
         type: Boolean,
-        value: true,
+        value: true
       },
       noAnimationConfig: {
         type: Object,
-        value: {},
+        value: {}
       },
 
       openOnClick: {
         type: Boolean,
         value: false,
-        observer: '_openOnClickChanged',
+        observer: '_openOnClickChanged'
       },
       /**
        * Used to align tooltip icon near a paper-input or a form input that uses paper-input-container
@@ -178,21 +175,21 @@ class EtoolsInfoTooltip extends PolymerElement {
       formFieldAlign: {
         type: Boolean,
         value: false,
-        reflectToAttribute: true,
+        reflectToAttribute: true
       },
       tooltipHandler: {
-        type: Object,
+        type: Object
       },
       offset: {
         type: Number,
-        value: 5,
+        value: 5
       },
     };
   }
 
   connectedCallback() {
     super.connectedCallback();
-    let tooltipContent = this.$.tooltip.$.tooltip;
+    const tooltipContent = this.$.tooltip.$.tooltip;
     if (tooltipContent) {
       tooltipContent.style.display = 'flex';
       tooltipContent.style.flexDirection = 'row';
@@ -218,7 +215,7 @@ class EtoolsInfoTooltip extends PolymerElement {
   }
 
   _addClickEventListeners() {
-    let target = this.$['tooltip-trigger'];
+    const target = this.$['tooltip-trigger'];
     if (target) {
       target.addEventListener('click', this._openTooltip.bind(this));
       target.addEventListener('focus', this._openTooltip.bind(this));
@@ -229,7 +226,7 @@ class EtoolsInfoTooltip extends PolymerElement {
   }
 
   _removeClickEventListeners() {
-    let target = this.$['tooltip-trigger'];
+    const target = this.$['tooltip-trigger'];
     if (target) {
       target.removeEventListener('click', this._openTooltip);
       target.removeEventListener('focus', this._openTooltip);
