@@ -1,4 +1,4 @@
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-tooltip/paper-tooltip.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
@@ -116,6 +116,7 @@ class EtoolsInfoTooltip extends PolymerElement {
         animation-entry=""
         animation-exit=""
         fit-to-visible-bounds="[[fitToVisibleBounds]]"
+        offset="[[offset]]"
       >
         <slot name="message"></slot>
       </paper-tooltip>
@@ -181,6 +182,10 @@ class EtoolsInfoTooltip extends PolymerElement {
       },
       tooltipHandler: {
         type: Object,
+      },
+      offset: {
+        type: Number,
+        value: 5,
       },
     };
   }
