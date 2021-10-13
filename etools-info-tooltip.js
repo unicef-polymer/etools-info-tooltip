@@ -183,7 +183,7 @@ class EtoolsInfoTooltip extends PolymerElement {
       offset: {
         type: Number,
         value: 5
-      },
+      }
     };
   }
 
