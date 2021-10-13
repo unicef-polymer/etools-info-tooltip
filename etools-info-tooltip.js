@@ -26,13 +26,16 @@ class EtoolsInfoTooltip extends PolymerElement {
           --tooltip-box-style: {
             text-align: center;
             line-height: 1.4;
-          };
+          }
           --light-tooltip-style: {
             -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
             -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
             border: 1px solid rgba(0, 0, 0, 0.15);
-          };
+          }
+          --paper-tooltip: {
+            font-size: 12px;
+          }
           @apply --layout-horizontal;
           @apply --layout-center;
         }
@@ -50,15 +53,18 @@ class EtoolsInfoTooltip extends PolymerElement {
           @apply --layout-start-justified;
         }
 
-        :host([theme="light"]) {
+        :host([theme='light']) {
           --paper-tooltip-background: var(--primary-background-color, #ffffff);
           --paper-tooltip-opacity: 1;
-          --paper-tooltip-text-color: var(--primary-text-color, rgba(0, 0, 0, 0.87));
+          --paper-tooltip-text-color: var(
+            --primary-text-color,
+            rgba(0, 0, 0, 0.87)
+          );
 
           --paper-tooltip: {
             @apply --tooltip-box-style;
             @apply --light-tooltip-style;
-          };
+          }
         }
 
         :host([form-field-align]) #tooltip-trigger {
@@ -81,10 +87,18 @@ class EtoolsInfoTooltip extends PolymerElement {
         :host([important-warning]:not([hide-tooltip])) {
           color: var(--error-color, #e54f2e);
         }
+        :host #tooltip-trigger:focus:not(:focus-visible) {
+          outline: 0;
+        }
+        :host #tooltip-trigger:focus-visible {
+          outline: 0;
+          box-shadow: 0 0 5px 5px rgba(170, 165, 165, 0.3);
+          background-color: rgba(170, 165, 165, 0.2);
+        }
       </style>
       <!-- element assigned to this tooltip -->
       <slot name="field"></slot>
-      <span id="tooltip-trigger" hidden\$="[[hideTooltip]]">
+      <span id="tooltip-trigger" hidden$="[[hideTooltip]]" tabindex="0">
         <template is="dom-if" if="[[!customIcon]]" restamp>
           <iron-icon icon="[[icon]]"></iron-icon>
         </template>
@@ -92,12 +106,18 @@ class EtoolsInfoTooltip extends PolymerElement {
           <slot name="custom-icon"></slot>
         </template>
       </span>
-      <paper-tooltip id="tooltip"
-                     for="tooltip-trigger"
-                     position="[[position]]"
-                     animation-delay="[[animationDelay]]"
-                     manual-mode="[[openOnClick]]"
-                     fit-to-visible-bounds="[[fitToVisibleBounds]]">
+      <paper-tooltip
+        id="tooltip"
+        for="tooltip-trigger"
+        position="[[position]]"
+        animation-delay="[[animationDelay]]"
+        manual-mode="[[openOnClick]]"
+        animation-config="[[noAnimationConfig]]"
+        animation-entry=""
+        animation-exit=""
+        fit-to-visible-bounds="[[fitToVisibleBounds]]"
+        offset="[[offset]]"
+      >
         <slot name="message"></slot>
       </paper-tooltip>
     `;
@@ -111,42 +131,46 @@ class EtoolsInfoTooltip extends PolymerElement {
     return {
       position: {
         type: String,
-        value: 'top'
+        value: 'top',
       },
       animationDelay: {
         type: Number,
-        value: 0
+        value: 0,
       },
       icon: {
         type: String,
-        value: 'info-outline'
+        value: 'info-outline',
       },
       customIcon: {
         type: Boolean,
-        value: false
+        value: false,
       },
       hideTooltip: Boolean,
       importantWarning: {
         type: Boolean,
         value: false,
         reflectToAttribute: true,
-        observer: '_refreshStyles'
+        observer: '_refreshStyles',
       },
       theme: {
         type: String,
         value: 'dark',
         reflectToAttribute: true,
-        observer: '_refreshStyles'
+        observer: '_refreshStyles',
       },
       fitToVisibleBounds: {
         type: Boolean,
-        value: true
+        value: true,
+      },
+      noAnimationConfig: {
+        type: Object,
+        value: {},
       },
 
       openOnClick: {
         type: Boolean,
         value: false,
-        observer: '_openOnClickChanged'
+        observer: '_openOnClickChanged',
       },
       /**
        * Used to align tooltip icon near a paper-input or a form input that uses paper-input-container
@@ -154,8 +178,15 @@ class EtoolsInfoTooltip extends PolymerElement {
       formFieldAlign: {
         type: Boolean,
         value: false,
-        reflectToAttribute: true
-      }
+        reflectToAttribute: true,
+      },
+      tooltipHandler: {
+        type: Object,
+      },
+      offset: {
+        type: Number,
+        value: 5,
+      },
     };
   }
 
@@ -215,7 +246,6 @@ class EtoolsInfoTooltip extends PolymerElement {
   _closeTooltip() {
     this.$.tooltip.hide();
   }
-
 }
 
 window.customElements.define(EtoolsInfoTooltip.is, EtoolsInfoTooltip);
