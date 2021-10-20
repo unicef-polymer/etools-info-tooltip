@@ -1,7 +1,7 @@
 {
   "name": "@unicef-polymer/etools-info-tooltip",
   "description": "Tooltip element associated with form elements (or any other element). An icon is used to trigger tooltip open.",
-  "version": "3.2.0-rc.4",
+  "version": "4.0.0-rc.1",
   "main": "etools-info-tooltip.js",
   "module": "etools-info-tooltip.js",
   "license": "Apache-2.0",
@@ -21,6 +21,7 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-html": "^6.1.1",
     "eslint-plugin-prettier": "^3.2.0",
+    "lit-element": "^2.3.1",
     "js-yaml": "^3.14.0",
     "prettier": "^2.3.2",
     "prismjs": "^1.25.0",
