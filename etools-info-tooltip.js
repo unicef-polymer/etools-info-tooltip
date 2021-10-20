@@ -1,7 +1,6 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-tooltip/paper-tooltip.js';
 import '@polymer/iron-icons/iron-icons.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/neon-animation/neon-animations.js';
 
 /**
@@ -36,21 +35,23 @@ class EtoolsInfoTooltip extends PolymerElement {
           --paper-tooltip: {
             font-size: 12px;
           }
-          @apply --layout-horizontal;
-          @apply --layout-center;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
         }
 
         :host([right-aligned]) {
-          @apply --layout-end-justified;
+          justify-content: flex-end;
         }
 
         :host([icon-first]) {
-          @apply --layout-horizontal-reverse;
-          @apply --layout-end-justified;
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
         }
 
         :host([icon-first][right-aligned]) {
-          @apply --layout-start-justified;
+          justify-content: flex-start;
         }
 
         :host([theme='light']) {
@@ -65,8 +66,8 @@ class EtoolsInfoTooltip extends PolymerElement {
         }
 
         :host([form-field-align]) #tooltip-trigger {
-          @apply --layout;
-          @apply --layout-self-end;
+          display: flex;
+          align-self: flex-end;
           margin-bottom: 11px;
         }
 
