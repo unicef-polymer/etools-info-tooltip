@@ -194,9 +194,9 @@ class EtoolsInfoTooltip extends LitElement {
 
     this.icon = 'info-outline';
     this.position = 'top';
-    this.theme = 'dark';
-    this.importantWarning = false;
-    this.openOnClick = false;
+    this._theme = 'dark';
+    this._importantWarning = false;
+    this._openOnClick = false;
     this.formFieldAlign = false;
     this.customIcon = false;
     this.animationDelay = 0;
