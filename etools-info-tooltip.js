@@ -130,11 +130,13 @@ class EtoolsInfoTooltip extends LitElement {
         type: String
       },
       customIcon: {
-        type: Boolean
+        type: Boolean,
+        attribute: 'custom-icon'
       },
       hideTooltip: Boolean,
       importantWarning: {
-        type: Boolean
+        type: Boolean,
+        attribute: 'important-warning'
       },
       theme: {
         type: String
@@ -143,11 +145,13 @@ class EtoolsInfoTooltip extends LitElement {
         type: Boolean
       },
       noAnimationConfig: {
-        type: Object
+        type: Object,
+        attribute: 'no-animation-config'
       },
 
       openOnClick: {
-        type: Boolean
+        type: Boolean,
+        attribute: 'open-on-click'
       },
       /**
        * Used to align tooltip icon near a paper-input or a form input that uses paper-input-container
@@ -165,7 +169,7 @@ class EtoolsInfoTooltip extends LitElement {
   }
   set openOnClick(val) {
     this._openOnClick = val;
-    this._openOnClickChanged();
+    setTimeout(() => this._openOnClickChanged.bind(this, val)(), 200);
   }
   get openOnClick() {
     return this._openOnClick;
@@ -239,9 +243,9 @@ class EtoolsInfoTooltip extends LitElement {
     if (target) {
       target.addEventListener('click', this._openTooltip.bind(this));
       target.addEventListener('focus', this._openTooltip.bind(this));
-      target.addEventListener('mouseenter', this._openTooltip.bind(this));
+      // target.addEventListener('mouseenter', this._openTooltip.bind(this));
       target.addEventListener('blur', this._closeTooltip.bind(this));
-      target.addEventListener('mouseleave', this._closeTooltip.bind(this));
+      // target.addEventListener('mouseleave', this._closeTooltip.bind(this));
     }
   }
 
@@ -250,9 +254,9 @@ class EtoolsInfoTooltip extends LitElement {
     if (target) {
       target.removeEventListener('click', this._openTooltip);
       target.removeEventListener('focus', this._openTooltip);
-      target.removeEventListener('mouseenter', this._openTooltip);
+      //  target.removeEventListener('mouseenter', this._openTooltip);
       target.removeEventListener('blur', this._closeTooltip);
-      target.removeEventListener('mouseleave', this._closeTooltip);
+      // target.removeEventListener('mouseleave', this._closeTooltip);
     }
   }
 
