@@ -73,13 +73,11 @@ class EtoolsInfoTooltip extends LitElement {
 
         :host(:not([icon-first])) #tooltip-trigger {
           margin-left: 8px;
-          @apply --etools-tooltip-trigger-icon;
         }
 
         :host([icon-first]) #tooltip-trigger {
           margin-left: 0;
           margin-right: 8px;
-          @apply --etools-tooltip-trigger-icon;
         }
 
         :host([important-warning]:not([hide-tooltip])) {
@@ -96,7 +94,7 @@ class EtoolsInfoTooltip extends LitElement {
       </style>
       <!-- element assigned to this tooltip -->
       <slot name="field"></slot>
-      <span id="tooltip-trigger" ?hidden$="${this.hideTooltip}" tabindex="0">
+      <span id="tooltip-trigger" part="eit-trigger-icon" ?hidden$="${this.hideTooltip}" tabindex="0">
         <iron-icon ?hidden="${this.customIcon}" .icon="${this.icon}"></iron-icon>
 
         <slot ?hidden="${!this.customIcon}" name="custom-icon"></slot>
