@@ -1,7 +1,6 @@
-import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
+import {LitElement, html} from 'lit-element';
 import '@polymer/paper-tooltip/paper-tooltip.js';
 import '@polymer/iron-icons/iron-icons.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/neon-animation/neon-animations.js';
 
 /**
@@ -12,8 +11,8 @@ import '@polymer/neon-animation/neon-animations.js';
  * @customElement
  * @demo demo/index.html
  */
-class EtoolsInfoTooltip extends PolymerElement {
-  static get template() {
+class EtoolsInfoTooltip extends LitElement {
+  render() {
     // language=HTML
     return html`
       <style>
@@ -36,21 +35,23 @@ class EtoolsInfoTooltip extends PolymerElement {
           --paper-tooltip: {
             font-size: 12px;
           }
-          @apply --layout-horizontal;
-          @apply --layout-center;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
         }
 
         :host([right-aligned]) {
-          @apply --layout-end-justified;
+          justify-content: flex-end;
         }
 
         :host([icon-first]) {
-          @apply --layout-horizontal-reverse;
-          @apply --layout-end-justified;
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
         }
 
         :host([icon-first][right-aligned]) {
-          @apply --layout-start-justified;
+          justify-content: flex-start;
         }
 
         :host([theme='light']) {
@@ -65,20 +66,18 @@ class EtoolsInfoTooltip extends PolymerElement {
         }
 
         :host([form-field-align]) #tooltip-trigger {
-          @apply --layout;
-          @apply --layout-self-end;
+          display: flex;
+          align-self: flex-end;
           margin-bottom: 11px;
         }
 
         :host(:not([icon-first])) #tooltip-trigger {
           margin-left: 8px;
-          @apply --etools-tooltip-trigger-icon;
         }
 
         :host([icon-first]) #tooltip-trigger {
           margin-left: 0;
           margin-right: 8px;
-          @apply --etools-tooltip-trigger-icon;
         }
 
         :host([important-warning]:not([hide-tooltip])) {
@@ -95,115 +94,138 @@ class EtoolsInfoTooltip extends PolymerElement {
       </style>
       <!-- element assigned to this tooltip -->
       <slot name="field"></slot>
-      <span id="tooltip-trigger" hidden$="[[hideTooltip]]" tabindex="0">
-        <template is="dom-if" if="[[!customIcon]]" restamp>
-          <iron-icon icon="[[icon]]"></iron-icon>
-        </template>
-        <template is="dom-if" if="[[customIcon]]" restamp>
-          <slot name="custom-icon"></slot>
-        </template>
+      <span id="tooltip-trigger" part="eit-trigger-icon" ?hidden$="${this.hideTooltip}" tabindex="0">
+        <iron-icon ?hidden="${this.customIcon}" .icon="${this.icon}"></iron-icon>
+
+        <slot ?hidden="${!this.customIcon}" name="custom-icon"></slot>
       </span>
       <paper-tooltip
         id="tooltip"
         for="tooltip-trigger"
-        position="[[position]]"
-        animation-delay="[[animationDelay]]"
-        manual-mode="[[openOnClick]]"
-        animation-config="[[noAnimationConfig]]"
+        .position="${this.position}"
+        .animationDelay="${this.animationDelay}"
+        .manualMode="${this.openOnClick}"
+        .animationConfig="${this.noAnimationConfig}"
         animation-entry=""
         animation-exit=""
-        fit-to-visible-bounds="[[fitToVisibleBounds]]"
-        offset="[[offset]]"
+        .fitToVisibleBounds="${this.fitToVisibleBounds}"
+        .offset="${this.offset}"
       >
         <slot name="message"></slot>
       </paper-tooltip>
     `;
   }
 
-  static get is() {
-    return 'etools-info-tooltip';
-  }
-
   static get properties() {
     return {
       position: {
-        type: String,
-        value: 'top'
+        type: String
       },
       animationDelay: {
-        type: Number,
-        value: 0
+        type: Number
       },
       icon: {
-        type: String,
-        value: 'info-outline'
+        type: String
       },
       customIcon: {
         type: Boolean,
-        value: false
+        attribute: 'custom-icon'
       },
       hideTooltip: Boolean,
       importantWarning: {
         type: Boolean,
-        value: false,
-        reflectToAttribute: true,
-        observer: '_refreshStyles'
+        attribute: 'important-warning'
       },
       theme: {
-        type: String,
-        value: 'dark',
-        reflectToAttribute: true,
-        observer: '_refreshStyles'
+        type: String
       },
       fitToVisibleBounds: {
-        type: Boolean,
-        value: true
+        type: Boolean
       },
       noAnimationConfig: {
         type: Object,
-        value: {}
+        attribute: 'no-animation-config'
       },
 
       openOnClick: {
         type: Boolean,
-        value: false,
-        observer: '_openOnClickChanged'
+        attribute: 'open-on-click'
       },
       /**
        * Used to align tooltip icon near a paper-input or a form input that uses paper-input-container
        */
       formFieldAlign: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true
+        type: Boolean
       },
       tooltipHandler: {
         type: Object
       },
       offset: {
-        type: Number,
-        value: 5
+        type: Number
       }
     };
+  }
+  set openOnClick(val) {
+    this._openOnClick = val;
+    setTimeout(() => this._openOnClickChanged.bind(this, val)(), 200);
+  }
+  get openOnClick() {
+    return this._openOnClick;
+  }
+
+  set theme(val) {
+    this._theme = val;
+    this._refreshStyles();
+  }
+
+  get theme() {
+    return this._theme;
+  }
+
+  set importantWarning(val) {
+    this._importantWarning = val;
+    this._refreshStyles();
+  }
+
+  get importantWarning() {
+    return this._importantWarning;
+  }
+
+  constructor() {
+    super();
+
+    this.icon = 'info-outline';
+    this.position = 'top';
+    this._theme = 'dark';
+    this._importantWarning = false;
+    this._openOnClick = false;
+    this.formFieldAlign = false;
+    this.customIcon = false;
+    this.animationDelay = 0;
+    this.fitToVisibleBounds = true;
+    this.noAnimationConfig = {};
+    this.offset = 5;
   }
 
   connectedCallback() {
     super.connectedCallback();
-    const tooltipContent = this.$.tooltip.$.tooltip;
-    if (tooltipContent) {
-      tooltipContent.style.display = 'flex';
-      tooltipContent.style.flexDirection = 'row';
-      tooltipContent.style.textAlign = 'left';
-      tooltipContent.style.lineHeight = '16px';
-      tooltipContent.style.whiteSpace = 'pre-wrap';
-    }
+    setTimeout(() => {
+      const tooltipContent = this.shadowRoot.querySelector('#tooltip').shadowRoot.querySelector('#tooltip');
+      if (tooltipContent) {
+        tooltipContent.style.display = 'flex';
+        tooltipContent.style.flexDirection = 'row';
+        tooltipContent.style.textAlign = 'left';
+        tooltipContent.style.lineHeight = '16px';
+        tooltipContent.style.whiteSpace = 'pre-wrap';
+      }
+    });
   }
 
   _refreshStyles(importantWarning) {
     if (typeof importantWarning === 'undefined') {
       return;
     }
-    this.updateStyles();
+    this.requestUpdate();
   }
 
   _openOnClickChanged(openOnClick) {
@@ -215,34 +237,34 @@ class EtoolsInfoTooltip extends PolymerElement {
   }
 
   _addClickEventListeners() {
-    const target = this.$['tooltip-trigger'];
+    const target = this.shadowRoot.querySelector('#tooltip-trigger');
     if (target) {
       target.addEventListener('click', this._openTooltip.bind(this));
       target.addEventListener('focus', this._openTooltip.bind(this));
-      target.addEventListener('mouseenter', this._openTooltip.bind(this));
+      // target.addEventListener('mouseenter', this._openTooltip.bind(this));
       target.addEventListener('blur', this._closeTooltip.bind(this));
-      target.addEventListener('mouseleave', this._closeTooltip.bind(this));
+      // target.addEventListener('mouseleave', this._closeTooltip.bind(this));
     }
   }
 
   _removeClickEventListeners() {
-    const target = this.$['tooltip-trigger'];
+    const target = this.shadowRoot.querySelector('#tooltip-trigger');
     if (target) {
       target.removeEventListener('click', this._openTooltip);
       target.removeEventListener('focus', this._openTooltip);
-      target.removeEventListener('mouseenter', this._openTooltip);
+      //  target.removeEventListener('mouseenter', this._openTooltip);
       target.removeEventListener('blur', this._closeTooltip);
-      target.removeEventListener('mouseleave', this._closeTooltip);
+      // target.removeEventListener('mouseleave', this._closeTooltip);
     }
   }
 
   _openTooltip() {
-    this.$.tooltip.show();
+    this.shadowRoot.querySelector('#tooltip').show();
   }
 
   _closeTooltip() {
-    this.$.tooltip.hide();
+    this.shadowRoot.querySelector('#tooltip').hide();
   }
 }
 
-window.customElements.define(EtoolsInfoTooltip.is, EtoolsInfoTooltip);
+window.customElements.define('etools-info-tooltip', EtoolsInfoTooltip);
