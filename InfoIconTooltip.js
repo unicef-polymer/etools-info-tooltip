@@ -1,6 +1,7 @@
 import {LitElement, html, css} from 'lit-element';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html';
 import '@polymer/paper-tooltip';
+import '@polymer/iron-icons/iron-icons';
 
 class InfoIconTooltip extends LitElement {
   static get styles() {
@@ -73,7 +74,7 @@ class InfoIconTooltip extends LitElement {
         }
       </style>
 
-      <iron-icon tabindex="0" id="info-icon" icon="info-outline" @click="${this.showTooltip}"></iron-icon>
+      <iron-icon tabindex="0" id="info-icon" part="etools-iit-icon" icon="info-outline" @click="${this.showTooltip}"></iron-icon>
       <paper-tooltip
         for="info-icon"
         id="tooltip"
@@ -83,7 +84,7 @@ class InfoIconTooltip extends LitElement {
         .position="${this.position}"
         .offset="${this.offset}"
       >
-        <div id="etools-iit-content" class="elevation" elevation="1">
+        <div id="etools-iit-content" part="etools-iit-content" class="elevation" elevation="1">
           <a id="close-link" href="#" @click="${this.close}"> Close</a>
           <div class="tooltip-info gray-border">${unsafeHTML(this.tooltipText)}</div>
         </div>

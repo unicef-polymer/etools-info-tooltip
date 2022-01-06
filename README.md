@@ -69,6 +69,50 @@ Attributes:
 - `icon-first` attribute can be used to place the icon in front of the element
 - `right-aligned` attribute will align the content to the right
 
+
+# \<info-icon-tooltip\>
+
+Info icon element, on click will trigger tooltip open.
+
+## Usage
+
+```html
+
+<info-icon-tooltip
+  id="iit-context"
+  .tooltipText="${this.message}"
+  position="left"
+></info-icon-tooltip>
+
+<info-icon-tooltip tooltipText="Tooltip message for info icon" position="top" offset="25"> </info-icon-tooltip>
+```
+![info-icon-tooltip](https://raw.githubusercontent.com/unicef-polymer/etools-info-tooltip/HEAD/screenshots/info-icon-tooltip.png)
+
+Properties:
+
+- tooltipText - String, default: ``
+- position - String, default: `top`
+- offset - Number, default: `14`
+
+## Styling
+
+You can use `info-icon-tooltip` and element variables and mixins to change tooltip style.
+
+| Custom property                             | Description                                          | Default                                         |
+| ------------------------------------------- | ---------------------------------------------------- | ----------------------------------------------- |
+| `---iit-font-size`                          | Tooltip font size                                    | `14px`                                          |
+| `--iit-margin`                              | Icon margin                                          | `0`                                             |
+| `--iit-icon-size`                           | Icon size (width and height)                         | `24px`                                          |
+
+
+CSS Shadow Parts
+
+| Part                | Description                                           | Default |
+| ------------------  | ----------------------------------------------------- | ------- |
+| `etools-iit-icon`   | Styles applied to the icon that triggers tooltip open | ``      |
+| `etools-iit-content`| Styles applied to the tooltip content                 | ``      |
+
+
 ## Install
 
 ```bash
@@ -108,7 +152,7 @@ $ polymer test
 
 ## Circle CI
 
-Package will be automatically published after tag push (`git tag 1.2.3` , `git push --tags`). Tag name must correspond to SemVer (Semantic Versioning) rules.  
+Package will be automatically published after tag push (`git tag 1.2.3` , `git push --tags`). Tag name must correspond to SemVer (Semantic Versioning) rules.
 Examples:
 
 | Version match      | Result   |
