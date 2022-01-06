@@ -51,7 +51,8 @@ class InfoIconTooltip extends LitElement {
 
         .elevation[elevation='1'],
         :host(.elevation[elevation='1']) {
-          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
+            0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
       `
     ];
@@ -74,7 +75,13 @@ class InfoIconTooltip extends LitElement {
         }
       </style>
 
-      <iron-icon tabindex="0" id="info-icon" part="etools-iit-icon" icon="info-outline" @click="${this.showTooltip}"></iron-icon>
+      <iron-icon
+        tabindex="0"
+        id="info-icon"
+        part="etools-iit-icon"
+        icon="info-outline"
+        @click="${this.showTooltip}"
+      ></iron-icon>
       <paper-tooltip
         for="info-icon"
         id="tooltip"
@@ -94,14 +101,14 @@ class InfoIconTooltip extends LitElement {
 
   static get properties() {
     return {
-      tooltipText: { type: String },
-      position: { type: String },
-      offset: { type: Number },
+      tooltipText: {type: String},
+      position: {type: String},
+      offset: {type: Number},
       _tooltipHandler: {
         attribute: false,
         type: Object
       }
-    }
+    };
   }
 
   constructor() {
@@ -169,7 +176,7 @@ class InfoIconTooltip extends LitElement {
       return;
     }
 
-    this.shadowRoot.querySelector<PaperTooltipElement>('#tooltip').hide();
+    this.shadowRoot.querySelector < PaperTooltipElement > '#tooltip'.hide();
   }
 
   close(e) {
@@ -189,7 +196,7 @@ class InfoIconTooltip extends LitElement {
 
   callClickOnEnterPushListener(htmlElement) {
     if (htmlElement && htmlElement.addEventListener) {
-      htmlElement.addEventListener('keyup', function(event) {
+      htmlElement.addEventListener('keyup', function (event) {
         if (event.key === 'Enter' && !event.ctrlKey) {
           // Cancel the default action, if needed
           event.preventDefault();
