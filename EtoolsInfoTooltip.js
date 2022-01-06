@@ -94,7 +94,7 @@ export class EtoolsInfoTooltip extends LitElement {
       </style>
       <!-- element assigned to this tooltip -->
       <slot name="field"></slot>
-      <span id="tooltip-trigger" part="eit-trigger-icon" ?hidden$="${this.hideTooltip}" tabindex="0">
+      <span id="tooltip-trigger" part="eit-trigger-icon" ?hidden="${this.hideTooltip}" tabindex="0">
         <iron-icon ?hidden="${this.customIcon}" .icon="${this.icon}"></iron-icon>
 
         <slot ?hidden="${!this.customIcon}" name="custom-icon"></slot>
