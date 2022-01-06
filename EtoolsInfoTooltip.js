@@ -210,7 +210,7 @@ export class EtoolsInfoTooltip extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     setTimeout(() => {
-      const tooltipContent = this.shadowRoot.querySelector('#tooltip').shadowRoot.querySelector('#tooltip');
+      const tooltipContent = this.shadowRoot.querySelector('#tooltip');
       if (tooltipContent) {
         tooltipContent.style.display = 'flex';
         tooltipContent.style.flexDirection = 'row';
