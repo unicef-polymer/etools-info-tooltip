@@ -78,20 +78,14 @@ Info icon element, on click will trigger tooltip open.
 
 ```html
 
-<info-icon-tooltip
-  id="iit-context"
-  .tooltipText="${this.message}"
-  position="left"
-></info-icon-tooltip>
-
 <info-icon-tooltip tooltipText="Tooltip message for info icon" position="top" offset="25"> </info-icon-tooltip>
 ```
-![info-icon-tooltip](https://raw.githubusercontent.com/unicef-polymer/etools-info-tooltip/HEAD/screenshots/info-icon-tooltip.png)
+![info-icon tooltip](https://raw.githubusercontent.com/unicef-polymer/etools-info-tooltip/HEAD/screenshots/info_icon_tooltip.png)
 
 Properties:
 
-- tooltipText - String, default: ``
-- position - String, default: `top`
+- tooltipText - String, default: ` `
+- position - String, default: `right`
 - offset - Number, default: `14`
 
 ## Styling
