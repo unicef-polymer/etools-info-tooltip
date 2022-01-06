@@ -3,12 +3,20 @@ import {unsafeHTML} from 'lit-html/directives/unsafe-html';
 import '@polymer/paper-tooltip';
 import '@polymer/iron-icons/iron-icons';
 
-class InfoIconTooltip extends LitElement {
+/**
+ * `info-icon-tooltip`
+ *  Info icon element, on click will trigger tooltip open.
+ *
+ * @customElement
+ * @demo demo/index.html
+ */
+export class InfoIconTooltip extends LitElement {
   static get styles() {
     return [
       css`
         #info-icon {
           color: var(--primary-color);
+          cursor: pointer;
         }
 
         #etools-iit-content {
@@ -121,7 +129,7 @@ class InfoIconTooltip extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    setTimeout(() => callClickOnEnterPushListener(this.shadowRoot.querySelector('#info-icon')), 200);
+    setTimeout(() => this.callClickOnEnterPushListener(this.shadowRoot.querySelector('#info-icon')), 200);
   }
 
   showTooltip() {
@@ -176,7 +184,7 @@ class InfoIconTooltip extends LitElement {
       return;
     }
 
-    this.shadowRoot.querySelector < PaperTooltipElement > '#tooltip'.hide();
+    this.shadowRoot.querySelector('#tooltip').hide();
   }
 
   close(e) {
@@ -207,5 +215,3 @@ class InfoIconTooltip extends LitElement {
     }
   }
 }
-
-window.customElements.define('info-icon-tooltip', InfoIconTooltip);
