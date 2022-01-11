@@ -131,7 +131,10 @@ export class EtoolsInfoTooltip extends LitElement {
         type: Boolean,
         attribute: 'custom-icon'
       },
-      hideTooltip: Boolean,
+      hideTooltip: {
+        type: Boolean,
+        attribute: 'hide-tooltip'
+      },
       importantWarning: {
         type: Boolean,
         attribute: 'important-warning'
