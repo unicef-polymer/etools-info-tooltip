@@ -219,7 +219,6 @@ export class EtoolsInfoTooltip extends LitElement {
         tooltipContent.style.flexDirection = 'row';
         tooltipContent.style.textAlign = 'left';
         tooltipContent.style.lineHeight = '16px';
-        tooltipContent.style.whiteSpace = 'pre-wrap';
       }
     });
   }
