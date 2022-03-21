@@ -1,2 +1,2 @@
-export {EtoolsInfoTooltip} from './EtoolsDropdown.js';
+export {EtoolsInfoTooltip} from './EtoolsInfoTooltip';
 export {InfoIconTooltip} from './InfoIconTooltip.js';
