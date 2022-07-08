@@ -101,7 +101,9 @@ export class InfoIconTooltip extends LitElement {
       >
         <div id="etools-iit-content" part="etools-iit-content" class="elevation" elevation="1">
           <a id="close-link" href="#" @click="${this.close}"> Close</a>
-          <div class="tooltip-info gray-border">${unsafeHTML(this.tooltipText)}</div>
+          <div class="tooltip-info gray-border">
+            ${this.tooltipText ? unsafeHTML(this.tooltipText) : this.tooltipHtml}
+          </div>
         </div>
       </paper-tooltip>
     `;
@@ -110,6 +112,7 @@ export class InfoIconTooltip extends LitElement {
   static get properties() {
     return {
       tooltipText: {type: String},
+      tooltipHtml: {type: Object},
       position: {type: String},
       offset: {type: Number},
       _tooltipHandler: {
