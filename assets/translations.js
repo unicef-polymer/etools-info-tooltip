@@ -12,10 +12,10 @@ const translations = {
     CLOSE: 'قريب'
   },
   es: {
-    CLOSE: 'Cerca'
+    CLOSE: 'Cerrar'
   },
   pt: {
-    CLOSE: 'Perto'
+    CLOSE: 'Fechar'
   },
   ru: {
     CLOSE: 'закрывать'
