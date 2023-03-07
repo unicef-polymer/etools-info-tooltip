@@ -72,12 +72,12 @@ export class EtoolsInfoTooltip extends LitElement {
         }
 
         :host(:not([icon-first])) #tooltip-trigger {
-          margin-left: 8px;
+          margin-inline-start: 8px;
         }
 
         :host([icon-first]) #tooltip-trigger {
-          margin-left: 0;
-          margin-right: 8px;
+          margin-inline-start: 0;
+          margin-inline-end: 8px;
         }
 
         :host([important-warning]:not([hide-tooltip])) {
