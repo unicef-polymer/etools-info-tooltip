@@ -197,8 +197,8 @@ export class InfoIconTooltip extends LitElement {
   }
 
   hideTooltip(e) {
-    // @ts-ignore
-    if (e.path[0].id !== 'close-link' && this._isInPath(e.path, 'id', 'etools-iit-content')) {
+    const path = e.composedPath() || [];
+    if (path.length && path[0].id !== 'close-link' && this._isInPath(path, 'id', 'etools-iit-content')) {
       return;
     }
 
