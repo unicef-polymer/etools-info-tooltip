@@ -1,7 +1,7 @@
 {
   "name": "@unicef-polymer/etools-info-tooltip",
   "description": "Tooltip element associated with form elements (or any other element). An icon is used to trigger tooltip open.",
-  "version": "4.1.7",
+  "version": "4.1.8",
   "main": "index.js",
   "module": "index.js",
   "license": "Apache-2.0",
