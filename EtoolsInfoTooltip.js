@@ -72,12 +72,12 @@ export class EtoolsInfoTooltip extends LitElement {
         }
 
         :host(:not([icon-first])) #tooltip-trigger {
-          margin-left: 8px;
+          margin-inline-start: 8px;
         }
 
         :host([icon-first]) #tooltip-trigger {
-          margin-left: 0;
-          margin-right: 8px;
+          margin-inline-start: 0;
+          margin-inline-end: 8px;
         }
 
         :host([important-warning]:not([hide-tooltip])) {
@@ -102,7 +102,7 @@ export class EtoolsInfoTooltip extends LitElement {
       <paper-tooltip
         id="tooltip"
         for="tooltip-trigger"
-        .position="${this.position}"
+        .position="${this.readingOrderConvertedPosition}"
         .animationDelay="${this.animationDelay}"
         .manualMode="${this.openOnClick}"
         .animationConfig="${this.noAnimationConfig}"
@@ -168,6 +168,19 @@ export class EtoolsInfoTooltip extends LitElement {
       }
     };
   }
+
+  get readingOrderConvertedPosition() {
+    if (this.position === 'left' && document.dir === 'rtl') {
+      return 'right';
+    }
+
+    if (this.position === 'right' && document.dir === 'rtl') {
+      return 'left';
+    }
+
+    return this.position;
+  }
+
   set openOnClick(val) {
     this._openOnClick = val;
     setTimeout(() => this._openOnClickChanged.bind(this, val)(), 200);
@@ -221,6 +234,18 @@ export class EtoolsInfoTooltip extends LitElement {
         tooltipContent.style.lineHeight = '16px';
       }
     });
+    document.addEventListener('language-changed', this._handleLanguageChange.bind(this));
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    document.removeEventListener('language-changed', this._handleLanguageChange.bind(this));
+  }
+
+  _handleLanguageChange(e) {
+    setTimeout(() => {
+      this.requestUpdate();
+    }, 300);
   }
 
   _refreshStyles(importantWarning) {
