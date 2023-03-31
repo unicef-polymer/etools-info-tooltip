@@ -2,6 +2,7 @@ import {LitElement, html} from 'lit-element';
 import '@polymer/paper-tooltip/paper-tooltip.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/neon-animation/neon-animations.js';
+import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
 
 /**
  * `etools-info-tooltip`
@@ -21,7 +22,6 @@ export class EtoolsInfoTooltip extends LitElement {
         }
 
         :host {
-          --paper-tooltip-delay-in: 0;
           --tooltip-box-style: {
             text-align: center;
             line-height: 1.4;
@@ -32,9 +32,9 @@ export class EtoolsInfoTooltip extends LitElement {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
             border: 1px solid rgba(0, 0, 0, 0.15);
           }
-          --paper-tooltip: {
-            font-size: 12px;
-          }
+
+          --show-delay: 50;
+
           display: flex;
           flex-direction: row;
           align-items: center;
@@ -55,14 +55,12 @@ export class EtoolsInfoTooltip extends LitElement {
         }
 
         :host([theme='light']) {
-          --paper-tooltip-background: var(--primary-background-color, #ffffff);
-          --paper-tooltip-opacity: 1;
-          --paper-tooltip-text-color: var(--primary-text-color, rgba(0, 0, 0, 0.87));
-
-          --paper-tooltip: {
-            @apply --tooltip-box-style;
-            @apply --light-tooltip-style;
-          }
+          --sl-tooltip-background-color: var(--primary-background-color, #ffffff);
+          --sl-tooltip-color: var(--primary-text-color, rgba(0, 0, 0, 0.87));
+        }
+        sl-tooltip[theme='light']::part(body) {
+          @apply --tooltip-box-style;
+          @apply --light-tooltip-style;
         }
 
         :host([form-field-align]) #tooltip-trigger {
@@ -94,25 +92,16 @@ export class EtoolsInfoTooltip extends LitElement {
       </style>
       <!-- element assigned to this tooltip -->
       <slot name="field"></slot>
-      <span id="tooltip-trigger" part="eit-trigger-icon" ?hidden="${this.hideTooltip}" tabindex="0">
-        <iron-icon ?hidden="${this.customIcon}" .icon="${this.icon}"></iron-icon>
+      <sl-tooltip id="tooltip" .trigger="${this.openOnClick ? 'click' : 'hover'}" theme="${this.theme}">
+        <div slot="content">
+          <slot name="message"></slot>
+        </div>
+        <span id="tooltip-trigger" part="eit-trigger-icon" ?hidden="${this.hideTooltip}" tabindex="0">
+          <iron-icon ?hidden="${this.customIcon}" .icon="${this.icon}"></iron-icon>
 
-        <slot ?hidden="${!this.customIcon}" name="custom-icon"></slot>
-      </span>
-      <paper-tooltip
-        id="tooltip"
-        for="tooltip-trigger"
-        .position="${this.readingOrderConvertedPosition}"
-        .animationDelay="${this.animationDelay}"
-        .manualMode="${this.openOnClick}"
-        .animationConfig="${this.noAnimationConfig}"
-        animation-entry=""
-        animation-exit=""
-        .fitToVisibleBounds="${this.fitToVisibleBounds}"
-        .offset="${this.offset}"
-      >
-        <slot name="message"></slot>
-      </paper-tooltip>
+          <slot ?hidden="${!this.customIcon}" name="custom-icon"></slot>
+        </span>
+      </sl-tooltip>
     `;
   }
 
@@ -120,9 +109,6 @@ export class EtoolsInfoTooltip extends LitElement {
     return {
       position: {
         type: String
-      },
-      animationDelay: {
-        type: Number
       },
       icon: {
         type: String
@@ -142,14 +128,6 @@ export class EtoolsInfoTooltip extends LitElement {
       theme: {
         type: String
       },
-      fitToVisibleBounds: {
-        type: Boolean
-      },
-      noAnimationConfig: {
-        type: Object,
-        attribute: 'no-animation-config'
-      },
-
       openOnClick: {
         type: Boolean,
         attribute: 'open-on-click'
@@ -217,23 +195,11 @@ export class EtoolsInfoTooltip extends LitElement {
     this._openOnClick = false;
     this.formFieldAlign = false;
     this.customIcon = false;
-    this.animationDelay = 0;
-    this.fitToVisibleBounds = true;
-    this.noAnimationConfig = {};
     this.offset = 5;
   }
 
   connectedCallback() {
     super.connectedCallback();
-    setTimeout(() => {
-      const tooltipContent = this.shadowRoot.querySelector('#tooltip').shadowRoot.querySelector('#tooltip');
-      if (tooltipContent) {
-        tooltipContent.style.display = 'flex';
-        tooltipContent.style.flexDirection = 'row';
-        tooltipContent.style.textAlign = 'left';
-        tooltipContent.style.lineHeight = '16px';
-      }
-    });
     document.addEventListener('language-changed', this._handleLanguageChange.bind(this));
   }
 
@@ -266,7 +232,6 @@ export class EtoolsInfoTooltip extends LitElement {
   _addClickEventListeners() {
     const target = this.shadowRoot.querySelector('#tooltip-trigger');
     if (target) {
-      target.addEventListener('click', this._openTooltip.bind(this));
       target.addEventListener('focus', this._openTooltip.bind(this));
       // target.addEventListener('mouseenter', this._openTooltip.bind(this));
       target.addEventListener('blur', this._closeTooltip.bind(this));
@@ -277,7 +242,6 @@ export class EtoolsInfoTooltip extends LitElement {
   _removeClickEventListeners() {
     const target = this.shadowRoot.querySelector('#tooltip-trigger');
     if (target) {
-      target.removeEventListener('click', this._openTooltip);
       target.removeEventListener('focus', this._openTooltip);
       //  target.removeEventListener('mouseenter', this._openTooltip);
       target.removeEventListener('blur', this._closeTooltip);
