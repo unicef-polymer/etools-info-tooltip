@@ -2,7 +2,7 @@ import {LitElement, html, css} from 'lit-element';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html';
 import '@polymer/paper-tooltip';
 import '@polymer/iron-icons/iron-icons';
-import {getTranslation} from './utils/translate';
+import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
 
 /**
  * `info-icon-tooltip`
@@ -15,6 +15,9 @@ export class InfoIconTooltip extends LitElement {
   static get styles() {
     return [
       css`
+        :host {
+          --iit-max-width: 50vw;
+        }
         #info-icon {
           color: var(--primary-color);
           cursor: pointer;
@@ -44,23 +47,13 @@ export class InfoIconTooltip extends LitElement {
           width: var(--iit-icon-size, 24px);
           height: var(--iit-icon-size, 24px);
         }
-        #close-link {
-          font-weight: bold;
-          top: 8px;
-          right: 10px;
-          font-size: 12px;
-          position: absolute;
-          color: var(--primary-color);
-          text-decoration: none;
-          cursor: pointer;
-        }
-        .elevation,
-        :host(.elevation) {
-          display: block;
+
+        sl-tooltip {
+          --sl-tooltip-background-color: white;
+          --max-width: var(--iit-max-width);
         }
 
-        .elevation[elevation='1'],
-        :host(.elevation[elevation='1']) {
+        sl-tooltip::part(body) {
           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
             0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
@@ -71,43 +64,23 @@ export class InfoIconTooltip extends LitElement {
   render() {
     // language=HTML
     return html`
-      <style>
-        paper-tooltip {
-          --paper-tooltip-background: #ffffff;
-          --paper-tooltip: {
-            padding: 0;
-          }
-          width: auto;
-        }
-        :host {
-          display: inline-block;
-          cursor: pointer;
-        }
-      </style>
-
-      <iron-icon
-        tabindex="0"
-        id="info-icon"
-        part="etools-iit-icon"
-        icon="info-outline"
-        @click="${this.showTooltip}"
-      ></iron-icon>
-      <paper-tooltip
-        for="info-icon"
-        id="tooltip"
-        fit-to-visible-bounds
-        manual-mode
-        animation-entry="noanimation"
-        .position="${this.position}"
-        .offset="${this.offset}"
-      >
-        <div id="etools-iit-content" part="etools-iit-content" class="elevation" elevation="1">
-          <a id="close-link" @click="${this.close}">${getTranslation(this.language, 'CLOSE')}</a>
-          <div class="tooltip-info gray-border">
-            ${this.tooltipText ? unsafeHTML(this.tooltipText) : this.tooltipHtml}
+      <sl-tooltip id="tooltip" trigger="click manual" .position="${this.position}">
+        <div slot="content">
+          <div id="etools-iit-content" part="etools-iit-content">
+            <div class="tooltip-info gray-border">
+              ${this.tooltipText ? unsafeHTML(this.tooltipText) : this.tooltipHtml}
+            </div>
           </div>
         </div>
-      </paper-tooltip>
+
+        <iron-icon
+          tabindex="0"
+          id="info-icon"
+          part="etools-iit-icon"
+          icon="info-outline"
+          @click="${this.showTooltip}"
+        ></iron-icon>
+      </sl-tooltip>
     `;
   }
 
@@ -158,44 +131,6 @@ export class InfoIconTooltip extends LitElement {
 
     this._tooltipHandler = this.hideTooltip.bind(this);
     document.addEventListener('click', this._tooltipHandler, true);
-    setTimeout(() => {
-      this.fixTooltipPosition(tooltip);
-    }, 10);
-  }
-
-  fixTooltipPosition(tooltip) {
-    // need window.EtoolsEsmmFitIntoEl to calculate positioning
-    const offsetParent = window.EtoolsEsmmFitIntoEl;
-    if (!offsetParent) {
-      return;
-    }
-
-    if (tooltip.position === 'left') {
-      // horizontal positioning
-      let tooltipRect = tooltip.getBoundingClientRect();
-      const iconRect = tooltip.target.getBoundingClientRect();
-      const rightMargin = offsetParent.getBoundingClientRect().right - iconRect.right + iconRect.width;
-      tooltip.style.inset = `${
-        iconRect.top + offsetParent.scrollTop - offsetParent.offsetTop
-      }px ${rightMargin}px auto auto`;
-      tooltipRect = tooltip.getBoundingClientRect();
-      // vertical positioning
-      const verticalCenterOffset = (tooltipRect.height - iconRect.height) / 2;
-      const availableTopAboveIcon = iconRect.top - offsetParent.offsetTop;
-      const top =
-        iconRect.top +
-        offsetParent.scrollTop -
-        offsetParent.offsetTop -
-        Math.min(verticalCenterOffset, availableTopAboveIcon);
-      tooltip.style.top = `${top}px`;
-    } else if (tooltip.position === 'right') {
-      const overlap = offsetParent.offsetTop - tooltip.getBoundingClientRect().top;
-      if (overlap > 0) {
-        // vertical positioning, make sure tooltip is not cut-off on top
-        const tooltipTop = parseFloat(tooltip.style.top.replace('px', ''));
-        tooltip.style.top = `${tooltipTop + overlap}px`;
-      }
-    }
   }
 
   /**
@@ -210,7 +145,7 @@ export class InfoIconTooltip extends LitElement {
     }
 
     const paperTooltip = this.shadowRoot.querySelector('#tooltip');
-    if (paperTooltip._showing) {
+    if (paperTooltip.open) {
       paperTooltip.hide();
       document.removeEventListener('click', this._tooltipHandler);
       if (!this.clickedOnOtherInfoIcon(path)) {
