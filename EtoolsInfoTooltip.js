@@ -221,6 +221,7 @@ export class EtoolsInfoTooltip extends LitElement {
     this.fitToVisibleBounds = true;
     this.noAnimationConfig = {};
     this.offset = 5;
+    this.language = window.EtoolsLanguage ? window.EtoolsLanguage : 'en';
   }
 
   connectedCallback() {
