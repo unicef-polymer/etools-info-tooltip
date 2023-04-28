@@ -131,7 +131,7 @@ export class InfoIconTooltip extends LitElement {
     this.tooltipText = '';
     this.position = 'right';
     this.offset = 14;
-    this.language = window.EtoolsLanguage ? window.EtoolsLanguage : 'en';
+    this.language = window.EtoolsLanguage || 'en';
   }
 
   connectedCallback() {
