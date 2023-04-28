@@ -244,9 +244,7 @@ export class EtoolsInfoTooltip extends LitElement {
   }
 
   _handleLanguageChange(e) {
-    setTimeout(() => {
-      this.requestUpdate();
-    }, 300);
+    this.language = e.detail.language;
   }
 
   _refreshStyles(importantWarning) {
