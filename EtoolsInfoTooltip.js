@@ -196,6 +196,7 @@ export class EtoolsInfoTooltip extends LitElement {
     this.formFieldAlign = false;
     this.customIcon = false;
     this.offset = 5;
+    this.language = window.EtoolsLanguage || 'en';
   }
 
   connectedCallback() {
@@ -209,9 +210,7 @@ export class EtoolsInfoTooltip extends LitElement {
   }
 
   _handleLanguageChange(e) {
-    setTimeout(() => {
-      this.requestUpdate();
-    }, 300);
+    this.language = e.detail.language;
   }
 
   _refreshStyles(importantWarning) {
