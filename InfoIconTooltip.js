@@ -1,6 +1,5 @@
 import {LitElement, html, css} from 'lit-element';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html';
-import '@polymer/paper-tooltip';
 import '@polymer/iron-icons/iron-icons';
 import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
 

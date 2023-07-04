@@ -1,7 +1,5 @@
 import {LitElement, html} from 'lit-element';
-import '@polymer/paper-tooltip/paper-tooltip.js';
 import '@polymer/iron-icons/iron-icons.js';
-import '@polymer/neon-animation/neon-animations.js';
 import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
 
 /**
@@ -22,17 +20,6 @@ export class EtoolsInfoTooltip extends LitElement {
         }
 
         :host {
-          --tooltip-box-style: {
-            text-align: center;
-            line-height: 1.4;
-          }
-          --light-tooltip-style: {
-            -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-            -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-            border: 1px solid rgba(0, 0, 0, 0.15);
-          }
-
           --show-delay: 50;
 
           display: flex;
@@ -59,8 +46,12 @@ export class EtoolsInfoTooltip extends LitElement {
           --sl-tooltip-color: var(--primary-text-color, rgba(0, 0, 0, 0.87));
         }
         sl-tooltip[theme='light']::part(body) {
-          @apply --tooltip-box-style;
-          @apply --light-tooltip-style;
+          text-align: center;
+          line-height: 1.4;
+          -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+          -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+          border: 1px solid rgba(0, 0, 0, 0.15);
         }
 
         :host([form-field-align]) #tooltip-trigger {
@@ -92,7 +83,14 @@ export class EtoolsInfoTooltip extends LitElement {
       </style>
       <!-- element assigned to this tooltip -->
       <slot name="field"></slot>
-      <sl-tooltip id="tooltip" .trigger="${this.openOnClick ? 'click' : 'hover'}" theme="${this.theme}">
+      <sl-tooltip
+        id="tooltip"
+        .trigger="${this.openOnClick ? 'click' : 'hover'}"
+        theme="${this.theme}"
+        ?hoist="${this.hoist}"
+        .distance="${this.offset}"
+        exportparts="body"
+      >
         <div slot="content">
           <slot name="message"></slot>
         </div>
@@ -143,6 +141,11 @@ export class EtoolsInfoTooltip extends LitElement {
       },
       offset: {
         type: Number
+      },
+      hoist: {
+        type: Boolean,
+        attirbute: 'hoist',
+        reflect: true
       }
     };
   }
